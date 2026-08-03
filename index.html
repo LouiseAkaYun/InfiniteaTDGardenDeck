@@ -575,53 +575,72 @@
     .cycle-card small { display:block; color:var(--muted); text-transform:uppercase; letter-spacing:.09em; font-weight:850; }
     .cycle-card strong { font-family:var(--serif); font-size:3.35rem; line-height:.95; color:var(--teal); }
     .gantt {
-      overflow-x: auto;
-      padding: 30px;
+      width: 100%;
+      overflow: hidden;
+      padding: clamp(18px, 2vw, 30px);
       background: #ffffff;
       border-radius: 24px;
       box-shadow: var(--shadow);
     }
-    .gantt-inner { min-width: 1280px; }
-    .gantt-scale {
-      display: grid;
-      grid-template-columns: 190px minmax(1020px, 1fr);
-      align-items: end;
-      margin-bottom: 10px;
+    .gantt-inner {
+      width: 100%;
+      min-width: 0;
     }
-    .time-scale {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 4px 10px;
-      color: var(--muted);
-      font-size: .68rem;
-      border-bottom: 1px solid var(--line);
-    }
+    .gantt-scale,
     .gantt-lane {
       display: grid;
-      grid-template-columns: 190px minmax(1020px, 1fr);
+      grid-template-columns: clamp(132px, 13vw, 180px) minmax(0, 1fr);
       align-items: center;
-      min-height: 104px;
+    }
+    .gantt-scale {
+      margin-bottom: 8px;
+    }
+    .time-scale {
+      display: grid;
+      grid-template-columns: repeat(26, minmax(0, 1fr));
+      align-items: end;
+      padding: 0 0 10px;
+      color: var(--muted);
+      font-size: clamp(.48rem, .55vw, .66rem);
       border-bottom: 1px solid var(--line);
     }
-    .gantt-lane.ice-prep-lane { min-height: 82px; }
-    .gantt-lane:last-of-type { border-bottom: 0; }
-    .lane-label { padding-right: 26px; }
+    .time-scale span {
+      text-align: center;
+      white-space: nowrap;
+    }
+    .gantt-lane {
+      min-height: 100px;
+      border-bottom: 1px solid var(--line);
+    }
+    .gantt-lane.ice-prep-lane {
+      min-height: 88px;
+    }
+    .gantt-lane:last-of-type {
+      border-bottom: 0;
+    }
+    .lane-label {
+      min-width: 0;
+      padding-right: clamp(10px, 1.7vw, 24px);
+    }
     .lane-label strong {
       display: block;
-      font-size: 1.08rem;
+      font-size: clamp(.82rem, 1.05vw, 1.06rem);
       font-weight: 900;
+      line-height: 1.15;
     }
     .lane-label span {
       display: block;
-      margin-top: 4px;
+      margin-top: 5px;
       color: var(--muted);
-      font-size: .72rem;
+      font-size: clamp(.60rem, .69vw, .72rem);
+      line-height: 1.35;
     }
     .lane-track {
       position: relative;
       display: grid;
       grid-template-columns: repeat(25, minmax(0, 1fr));
       align-items: center;
+      min-width: 0;
       min-height: 70px;
       background-image: repeating-linear-gradient(
         to right,
@@ -634,43 +653,109 @@
     .gantt-task {
       grid-row: 1;
       z-index: 2;
+      min-width: 0;
       min-height: 54px;
       margin: 0 2px;
-      padding: 7px 7px;
-      border-radius: 11px;
+      padding: 6px 5px;
+      overflow: hidden;
+      border-radius: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       line-height: 1.08;
-      font-size: .68rem;
+      font-size: clamp(.50rem, .60vw, .67rem);
       font-weight: 850;
+      white-space: normal;
     }
     .gantt-task small {
       display: block;
       margin-top: 4px;
-      font-size: .60rem;
+      font-size: clamp(.46rem, .51vw, .58rem);
       font-weight: 800;
-      opacity: .72;
+      opacity: .74;
+      white-space: nowrap;
     }
-    .cashier-confirm { grid-column: 1 / span 1; background:#e5f2f3; color:var(--teal-dark); }
-    .cashier-pour { grid-column: 2 / span 7; background:#c9e3e5; color:var(--teal-dark); }
-    .cashier-toppings { grid-column: 9 / span 6; background:#75b9bf; color:#073c41; }
-    .cashier-handoff { grid-column: 15 / span 1; background:var(--teal); color:#fff; }
-
-    .maker-place { grid-column: 1 / span 2; background:var(--copper-soft); color:#865018; }
-    .maker-dispense { grid-column: 3 / span 10; background:#d7ecee; color:var(--teal-dark); }
-    .maker-shake { grid-column: 13 / span 10; background:#8fc8cd; color:#083e43; }
-    .maker-stock { grid-column: 23 / span 3; background:var(--teal); color:#fff; }
-
-    .ice-task-1 { grid-column: 3 / span 3; background:#f5e2c8; color:#845019; }
-    .ice-task-2 { grid-column: 6 / span 3; background:#efd1aa; color:#75430f; }
-    .ice-task-3 { grid-column: 9 / span 3; background:#e7bc82; color:#663805; }
-
+    .cashier-confirm,
+    .cashier-handoff {
+      padding-left: 2px;
+      padding-right: 2px;
+      font-size: clamp(.47rem, .54vw, .60rem);
+    }
+    .cashier-confirm {
+      grid-column: 1 / span 1;
+      background: #e5f2f3;
+      color: var(--teal-dark);
+    }
+    .cashier-pour {
+      grid-column: 2 / span 7;
+      background: #c9e3e5;
+      color: var(--teal-dark);
+    }
+    .cashier-toppings {
+      grid-column: 9 / span 6;
+      background: #75b9bf;
+      color: #073c41;
+    }
+    .cashier-handoff {
+      grid-column: 15 / span 1;
+      background: var(--teal);
+      color: #ffffff;
+    }
+    .maker-place {
+      grid-column: 1 / span 2;
+      background: var(--copper-soft);
+      color: #865018;
+    }
+    .maker-dispense {
+      grid-column: 3 / span 10;
+      background: #d7ecee;
+      color: var(--teal-dark);
+    }
+    .maker-shake {
+      grid-column: 13 / span 10;
+      background: #8fc8cd;
+      color: #083e43;
+    }
+    .maker-stock {
+      grid-column: 23 / span 3;
+      background: var(--teal);
+      color: #ffffff;
+    }
+    .ice-task-1 {
+      grid-column: 3 / span 3;
+      background: #f5e2c8;
+      color: #845019;
+    }
+    .ice-task-2 {
+      grid-column: 6 / span 3;
+      background: #efd1aa;
+      color: #75430f;
+    }
+    .ice-task-3 {
+      grid-column: 9 / span 3;
+      background: #e7bc82;
+      color: #663805;
+    }
+    .ice-task-4 {
+      grid-column: 13 / span 3;
+      background: #dceff0;
+      color: var(--teal-dark);
+    }
+    .ice-task-5 {
+      grid-column: 16 / span 3;
+      background: #bfe1e3;
+      color: var(--teal-dark);
+    }
+    .ice-task-6 {
+      grid-column: 19 / span 3;
+      background: #9dced2;
+      color: #083e43;
+    }
     .parallel-note {
       display: grid;
-      grid-template-columns: 170px 1fr;
+      grid-template-columns: minmax(145px, 170px) 1fr;
       gap: 20px;
       align-items: start;
       margin-top: 24px;
@@ -678,8 +763,36 @@
       border-radius: 18px;
       background: var(--teal-soft);
     }
-    .parallel-note strong { color: var(--teal-dark); }
-    .parallel-note span { color: var(--ink); }
+    .parallel-note strong {
+      color: var(--teal-dark);
+    }
+    .parallel-note span {
+      color: var(--ink);
+    }
+    @media (max-width: 900px) {
+      .gantt-scale,
+      .gantt-lane {
+        grid-template-columns: 112px minmax(0, 1fr);
+      }
+      .gantt-task {
+        margin: 0 1px;
+        padding: 4px 2px;
+        font-size: .46rem;
+      }
+      .gantt-task small {
+        font-size: .42rem;
+      }
+      .lane-label strong {
+        font-size: .76rem;
+      }
+      .lane-label span {
+        font-size: .56rem;
+      }
+      .parallel-note {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+    }
 
     .workflow-grid { margin-top:38px; display:grid; gap:22px; }
     .workflow-card {
@@ -739,7 +852,7 @@
     .pilot-card.accent span { color:rgba(255,255,255,.78); }
     .timeline {
       position:relative;
-      display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin:56px 0 42px;
+      display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin:18px 0 42px;
     }
     .timeline::before {
       content:""; position:absolute; left:8%; right:8%; top:31px; height:4px;
@@ -1161,23 +1274,38 @@
           </div>
         </div>
 
-        <div class="gantt" aria-label="Illustrative parallel 25-second operating Gantt chart">
+                <div class="gantt" aria-label="Illustrative parallel 25-second operating Gantt chart">
           <div class="gantt-inner">
+
             <div class="gantt-scale">
               <div></div>
-              <div class="time-scale" aria-hidden="true"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25 sec</span></div>
+              <div class="time-scale" aria-hidden="true">
+                <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+              </div>
             </div>
 
             <div class="gantt-lane">
               <div class="lane-label">
                 <strong>Cashier</strong>
-                <span>Listed task duration: ≈15 sec</span>
+                <span>Guest-facing tasks: ≈15 sec</span>
               </div>
               <div class="lane-track">
-                <div class="gantt-task cashier-confirm">Confirm order<small>≈1 sec</small></div>
-                <div class="gantt-task cashier-pour">Pour premade drink into ice cup<small>≈7 sec</small></div>
-                <div class="gantt-task cashier-toppings">Add toppings<small>≈6 sec</small></div>
-                <div class="gantt-task cashier-handoff">Handoff<small>≈1 sec</small></div>
+                <div class="gantt-task cashier-confirm">
+                  Confirm
+                  <small>≈1 sec</small>
+                </div>
+                <div class="gantt-task cashier-pour">
+                  Pour premade drink into ice cup
+                  <small>≈7 sec</small>
+                </div>
+                <div class="gantt-task cashier-toppings">
+                  Add toppings
+                  <small>≈6 sec</small>
+                </div>
+                <div class="gantt-task cashier-handoff">
+                  Hand-off
+                  <small>≈1 sec</small>
+                </div>
               </div>
             </div>
 
@@ -1187,34 +1315,51 @@
                 <span>Premade-drink cycle: ≈25 sec</span>
               </div>
               <div class="lane-track">
-                <div class="gantt-task maker-place">Place cup + select drink<small>≈2 sec</small></div>
-                <div class="gantt-task maker-dispense">Auto dispense — Infinitea machine<small>≈10 sec</small></div>
-                <div class="gantt-task maker-shake">Auto shake — machine<small>≈10 sec</small></div>
-                <div class="gantt-task maker-stock">Stock premade drink<small>≈3 sec</small></div>
+                <div class="gantt-task maker-place">
+                  Place cup + select
+                  <small>≈2 sec</small>
+                </div>
+                <div class="gantt-task maker-dispense">
+                  Auto dispense — Infinitea machine
+                  <small>≈10 sec</small>
+                </div>
+                <div class="gantt-task maker-shake">
+                  Auto shake — machine
+                  <small>≈10 sec</small>
+                </div>
+                <div class="gantt-task maker-stock">
+                  Stock
+                  <small>≈3 sec</small>
+                </div>
               </div>
             </div>
 
             <div class="gantt-lane ice-prep-lane">
               <div class="lane-label">
-                <strong>Parallel ice prep</strong>
-                <span>Cycles during auto dispense</span>
+                <strong>Drink maker / parallel ice prep</strong>
+                <span>Runs during both automated machine cycles</span>
               </div>
               <div class="lane-track">
                 <div class="gantt-task ice-task-1">Ice prep 1<small>≈3 sec</small></div>
                 <div class="gantt-task ice-task-2">Ice prep 2<small>≈3 sec</small></div>
                 <div class="gantt-task ice-task-3">Ice prep 3<small>≈3 sec</small></div>
+                <div class="gantt-task ice-task-4">Ice prep 4<small>≈3 sec</small></div>
+                <div class="gantt-task ice-task-5">Ice prep 5<small>≈3 sec</small></div>
+                <div class="gantt-task ice-task-6">Ice prep 6<small>≈3 sec</small></div>
               </div>
             </div>
 
             <div class="parallel-note">
               <strong>Why the lanes work:</strong>
               <span>
-                The 10-second automatic dispense window allows three approximately
-                three-second ice-prep cycles to run in parallel. The drink maker
-                then moves to automatic shaking and stocks the premade buffer,
-                while the cashier completes guest-facing finishing and handoff.
+                Ice preparation is a drink-maker task. Three ice cups can be
+                prepared during the 10-second automatic dispense cycle, and
+                three additional ice cups can be prepared while the machine
+                completes the 10-second automatic shake cycle. This keeps the
+                drink maker productive throughout both automated windows.
               </span>
             </div>
+
           </div>
         </div>
 
@@ -1298,13 +1443,6 @@
           <div class="section-number">05 / Pilot</div>
           <div><h2>One stand. One summer. Real arena data before the season.</h2></div>
           <p>A tightly scoped pilot lets the teams validate demand, throughput, labor, cleaning and stand fit before any expansion decision.</p>
-        </div>
-
-        <div class="pilot-cards">
-          <div class="pilot-card"><strong>1</strong><span>existing concourse stand</span></div>
-          <div class="pilot-card"><strong>3×</strong><span>Model K units</span></div>
-          <div class="pilot-card"><strong>2 mo.</strong><span>summer concert window</span></div>
-          <div class="pilot-card accent"><strong>Lease waived</strong><span>during the proposed pilot*</span></div>
         </div>
 
         <div class="timeline">
