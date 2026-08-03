@@ -615,6 +615,48 @@
     .gantt-lane.ice-prep-lane {
       min-height: 88px;
     }
+    .gantt-worker-group {
+      display: grid;
+      grid-template-columns: clamp(132px, 13vw, 180px) minmax(0, 1fr);
+      align-items: stretch;
+      border-bottom: 1px solid var(--line);
+    }
+    .gantt-worker-group .shared-worker-label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      padding-right: clamp(10px, 1.7vw, 24px);
+    }
+    .gantt-worker-group .shared-worker-label strong {
+      display: block;
+      font-size: clamp(.82rem, 1.05vw, 1.06rem);
+      font-weight: 900;
+      line-height: 1.15;
+    }
+    .gantt-worker-group .shared-worker-label span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: clamp(.60rem, .69vw, .72rem);
+      line-height: 1.35;
+    }
+    .gantt-worker-tracks {
+      min-width: 0;
+    }
+    .gantt-worker-row {
+      display: flex;
+      align-items: center;
+      min-height: 100px;
+      border-bottom: 1px solid var(--line);
+    }
+    .gantt-worker-row:last-child {
+      min-height: 88px;
+      border-bottom: 0;
+    }
+    .gantt-worker-row .lane-track {
+      width: 100%;
+    }
     .gantt-lane:last-of-type {
       border-bottom: 0;
     }
@@ -771,7 +813,8 @@
     }
     @media (max-width: 900px) {
       .gantt-scale,
-      .gantt-lane {
+      .gantt-lane,
+      .gantt-worker-group {
         grid-template-columns: 112px minmax(0, 1fr);
       }
       .gantt-task {
@@ -1309,54 +1352,53 @@
               </div>
             </div>
 
-            <div class="gantt-lane">
-              <div class="lane-label">
-                <strong>Drink maker / machines</strong>
+            <div class="gantt-worker-group">
+              <div class="shared-worker-label">
+                <strong>Drink maker</strong>
                 <span>Premade-drink cycle: ≈25 sec</span>
               </div>
-              <div class="lane-track">
-                <div class="gantt-task maker-place">
-                  Place cup + select
-                  <small>≈2 sec</small>
-                </div>
-                <div class="gantt-task maker-dispense">
-                  Auto dispense — Infinitea machine
-                  <small>≈10 sec</small>
-                </div>
-                <div class="gantt-task maker-shake">
-                  Auto shake — machine
-                  <small>≈10 sec</small>
-                </div>
-                <div class="gantt-task maker-stock">
-                  Stock
-                  <small>≈3 sec</small>
-                </div>
-              </div>
-            </div>
 
-            <div class="gantt-lane ice-prep-lane">
-              <div class="lane-label">
-                <strong>Drink maker / parallel ice prep</strong>
-                <span>Runs during both automated machine cycles</span>
-              </div>
-              <div class="lane-track">
-                <div class="gantt-task ice-task-1">Ice prep 1<small>≈3 sec</small></div>
-                <div class="gantt-task ice-task-2">Ice prep 2<small>≈3 sec</small></div>
-                <div class="gantt-task ice-task-3">Ice prep 3<small>≈3 sec</small></div>
-                <div class="gantt-task ice-task-4">Ice prep 4<small>≈3 sec</small></div>
-                <div class="gantt-task ice-task-5">Ice prep 5<small>≈3 sec</small></div>
-                <div class="gantt-task ice-task-6">Ice prep 6<small>≈3 sec</small></div>
+              <div class="gantt-worker-tracks">
+                <div class="gantt-worker-row">
+                  <div class="lane-track">
+                    <div class="gantt-task maker-place">
+                      Place cup + select
+                      <small>≈2 sec</small>
+                    </div>
+                    <div class="gantt-task maker-dispense">
+                      Auto dispense
+                      <small>≈10 sec</small>
+                    </div>
+                    <div class="gantt-task maker-shake">
+                      Auto shake
+                      <small>≈10 sec</small>
+                    </div>
+                    <div class="gantt-task maker-stock">
+                      Stock
+                      <small>≈3 sec</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="gantt-worker-row">
+                  <div class="lane-track">
+                    <div class="gantt-task ice-task-1">Ice prep 1<small>≈3 sec</small></div>
+                    <div class="gantt-task ice-task-2">Ice prep 2<small>≈3 sec</small></div>
+                    <div class="gantt-task ice-task-3">Ice prep 3<small>≈3 sec</small></div>
+                    <div class="gantt-task ice-task-4">Ice prep 4<small>≈3 sec</small></div>
+                    <div class="gantt-task ice-task-5">Ice prep 5<small>≈3 sec</small></div>
+                    <div class="gantt-task ice-task-6">Ice prep 6<small>≈3 sec</small></div>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="parallel-note">
               <strong>Why the lanes work:</strong>
               <span>
-                Ice preparation is a drink-maker task. Three ice cups can be
-                prepared during the 10-second automatic dispense cycle, and
-                three additional ice cups can be prepared while the machine
-                completes the 10-second automatic shake cycle. This keeps the
-                drink maker productive throughout both automated windows.
+                Three ice cups can be prepared during the 10-second dispense
+                cycle, followed by three more during the 10-second shake cycle.
+                The two rows represent one coordinated drink-maker workflow.
               </span>
             </div>
 
