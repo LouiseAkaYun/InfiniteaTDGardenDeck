@@ -1,16 +1,9 @@
-TD GARDEN BOBA PITCH — GITHUB PAGES FLAT FILE PACKAGE
+GITHUB UPDATE FILES
 
-Upload every file in this folder to the same GitHub directory.
-Do not create an assets folder.
+Upload all files in this ZIP to the same GitHub directory as your website.
+Replace the current index.html.
 
-Main page:
-- index.html
-
-Cleaning subpage:
-- cleaning-sop.html
-
-All images and MP4 files sit beside the HTML files.
-Routes use the format ./filename.ext and are case-sensitive.
-
-Suggested GitHub Pages setup:
-Settings → Pages → Deploy from a branch → main / root.
+New images:
+- why-boba-grows.jpg
+- why-td-garden.jpg
+- why-model-k.jpg
