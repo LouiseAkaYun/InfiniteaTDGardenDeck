@@ -444,35 +444,207 @@
     .cycle-card small { display:block; color:var(--muted); text-transform:uppercase; letter-spacing:.09em; font-weight:850; }
     .cycle-card strong { font-family:var(--serif); font-size:3.35rem; line-height:.95; color:var(--teal); }
     .gantt {
-      background:white; border-radius:24px; padding:30px; box-shadow:var(--shadow); overflow:auto;
+      overflow-x: auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
     }
-    .gantt-header, .gantt-row {
+    
+    .gantt-inner {
       min-width: 980px;
-      display:grid;
-      grid-template-columns: 175px repeat(25, 1fr);
-      align-items:center;
     }
-    .gantt-header { margin-bottom: 10px; }
-    .gantt-header .tick { font-size:.65rem; color:var(--muted); text-align:center; }
-    .lane-label { font-weight:900; padding-right:20px; }
-    .gantt-row { min-height:78px; border-top:1px solid var(--line); position:relative; }
-    .bar {
-      align-self:center;
-      min-height:42px;
-      border-radius:9px;
-      display:flex; align-items:center; justify-content:center;
-      padding:5px 7px;
-      font-size:.68rem; font-weight:850; text-align:center; line-height:1.12;
-      z-index:2;
+    
+    /* Timeline numbers */
+    
+    .gantt-scale {
+      display: grid;
+      grid-template-columns: 180px minmax(760px, 1fr);
+      align-items: end;
+      margin-bottom: 10px;
     }
-    .cashier-a { grid-column: 2 / span 2; background:#e5f2f3; color:var(--teal-dark); }
-    .cashier-b { grid-column: 4 / span 2; background:#d1e9eb; color:var(--teal-dark); }
-    .cashier-c { grid-column: 6 / span 2; background:var(--teal); color:white; }
-    .maker-a { grid-column: 2 / span 3; background:#f9ead8; color:#865018; }
-    .maker-b { grid-column: 5 / span 6; background:#d7ecee; color:var(--teal-dark); }
-    .maker-c { grid-column: 11 / span 5; background:#b9dfe2; color:var(--teal-dark); }
-    .maker-d { grid-column: 16 / span 7; background:#7cc3c8; color:#093d42; }
-    .maker-e { grid-column: 23 / span 4; background:var(--teal); color:white; }
+    
+    .time-scale {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 4px 10px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      border-bottom: 1px solid var(--line);
+    }
+    
+    /* One employee lane */
+    
+    .gantt-lane {
+      display: grid;
+      grid-template-columns: 180px minmax(760px, 1fr);
+      align-items: center;
+      min-height: 104px;
+      border-bottom: 1px solid var(--line);
+    }
+    
+    .gantt-lane:last-of-type {
+      border-bottom: 0;
+    }
+    
+    .lane-label {
+      padding-right: 26px;
+    }
+    
+    .lane-label strong {
+      display: block;
+      font-size: 1.12rem;
+      font-weight: 900;
+    }
+    
+    .lane-label span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.73rem;
+    }
+    
+    /*
+      30 columns × 0.5 second = 15 seconds.
+      The vertical lines mark every full second.
+    */
+    
+    .lane-track {
+      display: grid;
+      grid-template-columns: repeat(30, minmax(0, 1fr));
+      align-items: center;
+      min-height: 70px;
+      position: relative;
+    
+      background-image: repeating-linear-gradient(
+        to right,
+        transparent 0,
+        transparent calc((100% / 15) - 1px),
+        rgba(23, 34, 52, 0.08) calc((100% / 15) - 1px),
+        rgba(23, 34, 52, 0.08) calc(100% / 15)
+      );
+    }
+    
+    /* Standard task rectangle */
+    
+    .gantt-task {
+      grid-row: 1;
+      z-index: 2;
+      min-height: 54px;
+      margin: 0 2px;
+      padding: 7px 8px;
+      border-radius: 11px;
+    
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    
+      text-align: center;
+      line-height: 1.08;
+      font-size: 0.73rem;
+      font-weight: 850;
+    }
+    
+    .gantt-task small {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.62rem;
+      font-weight: 800;
+      opacity: 0.72;
+    }
+    
+    /* Cashier: total ≈6 seconds
+    
+       Confirm:  0.0–0.5 sec
+       Retrieve: 0.5–1.0 sec
+       Seal:     1.0–5.0 sec
+       Handoff:  5.0–6.0 sec
+    */
+    
+    .cashier-confirm {
+      grid-column: 1 / span 1;
+      background: #e5f2f3;
+      color: var(--teal-dark);
+    }
+    
+    .cashier-retrieve {
+      grid-column: 2 / span 1;
+      background: #d1e9eb;
+      color: var(--teal-dark);
+    }
+    
+    .cashier-seal {
+      grid-column: 3 / span 8;
+      background: #75b9bf;
+      color: #073c41;
+    }
+    
+    .cashier-handoff {
+      grid-column: 11 / span 2;
+      background: var(--teal);
+      color: #ffffff;
+    }
+    
+    /* Drink maker: total ≈15 seconds
+    
+       Place cup + select:       0–1 sec
+       Ice prep + auto dispense: 1–9 sec
+       Auto shake:               9–15 sec
+    */
+    
+    .maker-place {
+      grid-column: 1 / span 2;
+      background: var(--copper-soft);
+      color: #865018;
+    }
+    
+    .maker-dispense {
+      grid-column: 3 / span 16;
+      background: #d7ecee;
+      color: var(--teal-dark);
+    }
+    
+    .maker-shake {
+      grid-column: 19 / span 12;
+      background: #8fc8cd;
+      color: #083e43;
+    }
+    
+    /* Explanation beneath chart */
+    
+    .parallel-note {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 20px;
+      align-items: start;
+    
+      margin-top: 24px;
+      padding: 21px 24px;
+      border-radius: 18px;
+      background: var(--teal-soft);
+    }
+    
+    .parallel-note strong {
+      color: var(--teal-dark);
+    }
+    
+    .parallel-note span {
+      color: var(--ink);
+    }
+    
+    /* Mobile */
+    
+    @media (max-width: 760px) {
+      .gantt {
+        padding: 20px;
+      }
+    
+      .parallel-note {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+    }
     .parallel-note {
       display:flex; gap:17px; align-items:flex-start; margin:18px 0 0; padding:18px 20px;
       border-radius:16px; background:var(--teal-soft);
