@@ -257,17 +257,29 @@
       display: flex;
       align-items: flex-end;
       overflow: hidden;
+      width: 100%;
+      padding: 0;
+      border: 0;
       border-radius: 24px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       box-shadow: var(--shadow);
       isolation: isolate;
+      cursor: pointer;
+      color: #ffffff;
+      font: inherit;
+      text-align: left;
+      appearance: none;
       transition: transform .25s ease, box-shadow .25s ease;
     }
     .market-why-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 22px 50px rgba(23,34,52,.18);
+    }
+    .market-why-card:focus-visible {
+      outline: 4px solid rgba(11,135,144,.34);
+      outline-offset: 4px;
     }
     .market-why-card::before {
       content: "";
@@ -308,6 +320,17 @@
       font-size: clamp(1.75rem, 2.4vw, 2.45rem);
       line-height: 1.02;
       letter-spacing: -.025em;
+    }
+    .market-why-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      color: rgba(255,255,255,.88);
+      font-size: .77rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
     .market-why-copy {
       margin: 0 0 15px;
@@ -454,6 +477,9 @@
       display:grid; grid-template-columns:repeat(2,1fr); gap: 18px;
       margin: 34px 0;
     }
+    .machine-stats.single-stat {
+      grid-template-columns: minmax(280px, 440px);
+    }
     .machine-stat {
       padding: 23px;
       background: var(--copper-soft);
@@ -562,17 +588,17 @@
       opacity: .72;
     }
     .cashier-confirm {
-      grid-column: 1 / span 1;
+      grid-column: 1 / span 2;
       background: #e5f2f3;
       color: var(--teal-dark);
     }
     .cashier-retrieve {
-      grid-column: 2 / span 1;
+      grid-column: 3 / span 2;
       background: #d1e9eb;
       color: var(--teal-dark);
     }
     .cashier-seal {
-      grid-column: 3 / span 8;
+      grid-column: 5 / span 6;
       background: #75b9bf;
       color: #073c41;
     }
@@ -875,64 +901,49 @@
 
         <div class="market-why-grid">
 
-          <article
+          <button
+            type="button"
             class="market-why-card"
             style="background-image:url('./why-boba-grows.jpg');"
+            data-modal="whyBobaGrows"
+            aria-haspopup="dialog"
           >
             <div class="market-why-content">
               <span class="market-why-tag">Why 01</span>
               <h3 class="market-why-title">Why Boba Tea Grows</h3>
-              <p class="market-why-copy">
-                Boba combines trend, taste and social occasion in one premium
-                alcohol-free drink that younger guests already understand.
-              </p>
-              <ul class="market-why-points">
-                <li>Young adults are drinking alcohol less often</li>
-                <li>Visual, customizable drinks feel premium and shareable</li>
-                <li>Flavor and topping variety encourages repeat purchase</li>
-              </ul>
+              <span class="market-why-cta">View details →</span>
             </div>
-          </article>
+          </button>
 
-          <article
+          <button
+            type="button"
             class="market-why-card"
             style="background-image:url('./why-td-garden.jpg');"
+            data-modal="whyTDGarden"
+            aria-haspopup="dialog"
           >
             <div class="market-why-content">
               <span class="market-why-tag">Why 02</span>
               <h3 class="market-why-title">Why It Belongs to TD Garden</h3>
-              <p class="market-why-copy">
-                TD Garden already has the volume, event calendar and premium
-                hospitality environment. The opportunity is a stronger
-                non-alcoholic specialty-drink option.
-              </p>
-              <ul class="market-why-points">
-                <li>Relevant to under-21 guests, families and non-drinkers</li>
-                <li>Adds incremental spend without replacing current offers</li>
-                <li>Sealed cups fit a fast-moving concourse environment</li>
-              </ul>
+              <span class="market-why-cta">View details →</span>
             </div>
-          </article>
+          </button>
 
-          <article
+          <button
+            type="button"
             class="market-why-card"
             style="background-image:url('./why-model-k.jpg');"
+            data-modal="whyModelK"
+            aria-haspopup="dialog"
           >
             <div class="market-why-content">
               <span class="market-why-tag">Why 03</span>
               <h3 class="market-why-title">Why Infinitea Model K</h3>
-              <p class="market-why-copy">
-                Model K is compact, mobile and labor-light — designed to add
-                specialty-drink capability inside an existing stand.
-              </p>
-              <ul class="market-why-points">
-                <li>Compact footprint for constrained service lines</li>
-                <li>Mobile placement supports different event configurations</li>
-                <li>Automated steps improve speed and recipe consistency</li>
-              </ul>
+              <span class="market-why-cta">View details →</span>
             </div>
-          </article>
+          </button>
 
+        </div>
         </div>
       </div>
     </section>
@@ -1011,11 +1022,11 @@
             <div class="kicker">Why Model K</div>
             <h2>Small footprint. Full beverage platform.</h2>
             <p>Model K is designed to roll into an existing service line, lock into position and run from one commercial power connection. Its narrow footprint supports a pilot without building a new specialty-drink stand.</p>
-            <div class="machine-stats">
-              <div class="machine-stat"><strong>≈25 sec</strong><span>planning cycle per cup</span></div>
-              <div class="machine-stat"><strong>144/hr</strong><span>theoretical output per unit</span></div>
-              <div class="machine-stat"><strong>17</strong><span>ingredient containers</span></div>
-              <div class="machine-stat"><strong>≈191</strong><span>cups before refill</span></div>
+            <div class="machine-stats single-stat">
+              <div class="machine-stat">
+                <strong>≈15 sec</strong>
+                <span>planning cycle per premade drink</span>
+              </div>
             </div>
             <div class="actions">
               <button class="primary" data-modal="modelDetails">Open Model K details</button>
@@ -1072,15 +1083,15 @@
               <div class="lane-track">
                 <div class="gantt-task cashier-confirm">
                   Confirm
-                  <small>≈0.5 sec</small>
+                  <small>≈1 sec</small>
                 </div>
                 <div class="gantt-task cashier-retrieve">
                   Retrieve
-                  <small>≈0.5 sec</small>
+                  <small>≈1 sec</small>
                 </div>
                 <div class="gantt-task cashier-seal">
                   Seal
-                  <small>≈4 sec</small>
+                  <small>≈3 sec</small>
                 </div>
                 <div class="gantt-task cashier-handoff">
                   Handoff
@@ -1207,7 +1218,7 @@
 
         <div class="pilot-cards">
           <div class="pilot-card"><strong>1</strong><span>existing concourse stand</span></div>
-          <div class="pilot-card"><strong>2–3×</strong><span>Model K units, finalized after site walk</span></div>
+          <div class="pilot-card"><strong>3×</strong><span>Model K units</span></div>
           <div class="pilot-card"><strong>2 mo.</strong><span>summer concert window</span></div>
           <div class="pilot-card accent"><strong>Lease waived</strong><span>during the proposed pilot*</span></div>
         </div>
@@ -1256,7 +1267,7 @@
           <li><a href="https://news.gallup.com/poll/509690/young-adults-drinking-less-prior-decades.aspx" target="_blank" rel="noopener">Gallup, 2023</a>: 62% of adults under 35 drank, down from 72% two decades earlier.</li>
           <li><a href="https://www.tdgarden.com/venue-info/about-td-garden" target="_blank" rel="noopener">TD Garden — About the Venue</a>: 3.5M+ annual guests, 200+ events annually, 47 concession stands and maximum capacity of 19,580.</li>
           <li><a href="https://www.tdgarden.com/news/detail/td-garden-named-6-highest-grossing-venue-worldwide" target="_blank" rel="noopener">TD Garden, 2023</a>: 50 concerts plus more than 200 special events and Bruins / Celtics home games.</li>
-          <li>Model K planning inputs supplied for this proposal: ≈25 seconds per cup, 144 cups/hour, 17 ingredient containers, ≈191 cups before refill, 660 × 540 mm cabinet footprint, casters and single power connection.</li>
+          <li>Model K planning input supplied for this proposal: ≈15 seconds per premade drink, 144 cups/hour, 17 ingredient containers, ≈191 cups before refill, 660 × 540 mm cabinet footprint, casters and single power connection.</li>
           <li>ROI assumptions: $10 selling price; $1.15 ingredient cost; gross contribution excludes labor, tax, fees, waste, packaging variance and venue revenue share.</li>
         </ol>
       </div>
@@ -1275,6 +1286,111 @@
 
 
 
+  <dialog id="whyBobaGrows">
+    <div class="modal-inner">
+      <button class="modal-close" aria-label="Close">×</button>
+      <div class="modal-kicker">Why 01 / Category growth</div>
+      <h2>Why Boba Tea Grows</h2>
+      <p>
+        Boba combines flavor, customization and social appeal in a premium
+        alcohol-free drink that younger guests already recognize.
+      </p>
+      <div class="detail-list">
+        <div class="detail-item">
+          <div class="num">1</div>
+          <div>
+            <strong>Alcohol use among younger adults is declining</strong>
+            <span>A premium zero-proof drink can serve a social occasion without relying on alcohol.</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="num">2</div>
+          <div>
+            <strong>It is visual and customizable</strong>
+            <span>Milk tea, fruit tea, pearls and other toppings create a product that feels personal and shareable.</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="num">3</div>
+          <div>
+            <strong>Variety supports repeat purchase</strong>
+            <span>Guests can return for different flavors, sweetness levels and topping combinations.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="whyTDGarden">
+    <div class="modal-inner">
+      <button class="modal-close" aria-label="Close">×</button>
+      <div class="modal-kicker">Why 02 / Venue fit</div>
+      <h2>Why It Belongs to TD Garden</h2>
+      <p>
+        TD Garden already has the event volume and premium hospitality
+        environment. Boba adds a specialty-drink option for guests who are
+        currently underserved by the alcohol-focused beverage mix.
+      </p>
+      <div class="detail-list">
+        <div class="detail-item">
+          <div class="num">1</div>
+          <div>
+            <strong>It reaches a different guest</strong>
+            <span>Under-21 fans, families, designated drivers and guests choosing not to drink can all purchase the same premium product.</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="num">2</div>
+          <div>
+            <strong>It adds rather than replaces</strong>
+            <span>The concept is intended to generate incremental beverage spend inside stands TD Garden already operates.</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="num">3</div>
+          <div>
+            <strong>It fits the event format</strong>
+            <span>Sealed cups, a premade buffer and rapid cashier handoff support concert preshow and game intermission demand.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="whyModelK">
+    <div class="modal-inner">
+      <button class="modal-close" aria-label="Close">×</button>
+      <div class="modal-kicker">Why 03 / Operating fit</div>
+      <h2>Why Infinitea Model K</h2>
+      <p>
+        Model K is designed to add a specialty-drink platform without creating
+        a large traditional boba counter or a labor-heavy manual production line.
+      </p>
+      <div class="detail-list">
+        <div class="detail-item">
+          <div class="num">1</div>
+          <div>
+            <strong>Compact</strong>
+            <span>Its narrow footprint is intended for constrained service lines and existing concession layouts.</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="num">2</div>
+          <div>
+            <strong>Mobile</strong>
+            <span>Casters allow the unit to be rolled into position and relocated for different event configurations.</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="num">3</div>
+          <div>
+            <strong>Built for lean operation</strong>
+            <span>Automated dispensing and shaking support a planned premade-drink cycle of approximately 15 seconds.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
 
   <dialog id="modelDetails">
     <div class="modal-inner">
@@ -1292,7 +1408,7 @@
         <div class="spec"><strong>144/hr</strong><span>theoretical output</span></div>
         <div class="spec"><strong>≈191</strong><span>cups per ingredient load</span></div>
         <div class="spec"><strong>17</strong><span>ingredient containers</span></div>
-        <div class="spec"><strong>≈25 sec</strong><span>planning cycle</span></div>
+        <div class="spec"><strong>≈15 sec</strong><span>planning cycle</span></div>
       </div>
     </div>
   </dialog>
