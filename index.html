@@ -57,7 +57,7 @@
       width: min(1320px, calc(100% - 34px));
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 280px 1fr 280px;
+      grid-template-columns: 280px 1fr;
       align-items: center;
       gap: 20px;
     }
@@ -222,7 +222,7 @@
     .market { background: var(--paper); }
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       border-radius: var(--radius);
       background: var(--teal-soft);
       box-shadow: var(--shadow);
@@ -456,12 +456,78 @@
       background: var(--teal-soft);
       right:-110px; bottom:-120px;
     }
-    .machine-stage img {
-      position:relative; z-index:1;
-      width: min(72%, 390px);
+    .machine-carousel {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 590px;
+      display: grid;
+      place-items: center;
+    }
+    .machine-carousel-viewport {
+      width: 100%;
+      min-height: 590px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .machine-slide {
+      display: none;
+      width: min(76%, 520px);
       max-height: 520px;
-      object-fit:contain;
+      object-fit: contain;
       filter: drop-shadow(0 24px 30px rgba(23,34,52,.18));
+    }
+    .machine-slide.active { display: block; }
+    .machine-slide.scene-slide {
+      width: 88%;
+      max-width: 720px;
+      border-radius: 18px;
+      object-fit: cover;
+    }
+    .carousel-control {
+      position: absolute;
+      top: 50%;
+      z-index: 4;
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(23,34,52,.14);
+      border-radius: 50%;
+      background: rgba(255,255,255,.94);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.7rem;
+      line-height: 1;
+      box-shadow: 0 8px 24px rgba(23,34,52,.14);
+    }
+    .carousel-control:hover { background: var(--teal); color: #fff; }
+    .carousel-control.prev { left: 18px; }
+    .carousel-control.next { right: 18px; }
+    .carousel-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      z-index: 4;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+    .carousel-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(23,34,52,.25);
+      cursor: pointer;
+    }
+    .carousel-dot.active {
+      width: 26px;
+      border-radius: 999px;
+      background: var(--teal);
     }
     .machine-copy .kicker {
       color:var(--copper); font-weight:900; letter-spacing:.09em; text-transform:uppercase;
@@ -515,10 +581,10 @@
       border-radius: 24px;
       box-shadow: var(--shadow);
     }
-    .gantt-inner { min-width: 980px; }
+    .gantt-inner { min-width: 1280px; }
     .gantt-scale {
       display: grid;
-      grid-template-columns: 180px minmax(760px, 1fr);
+      grid-template-columns: 190px minmax(1020px, 1fr);
       align-items: end;
       margin-bottom: 10px;
     }
@@ -527,41 +593,42 @@
       justify-content: space-between;
       padding: 0 4px 10px;
       color: var(--muted);
-      font-size: .72rem;
+      font-size: .68rem;
       border-bottom: 1px solid var(--line);
     }
     .gantt-lane {
       display: grid;
-      grid-template-columns: 180px minmax(760px, 1fr);
+      grid-template-columns: 190px minmax(1020px, 1fr);
       align-items: center;
       min-height: 104px;
       border-bottom: 1px solid var(--line);
     }
+    .gantt-lane.ice-prep-lane { min-height: 82px; }
     .gantt-lane:last-of-type { border-bottom: 0; }
     .lane-label { padding-right: 26px; }
     .lane-label strong {
       display: block;
-      font-size: 1.12rem;
+      font-size: 1.08rem;
       font-weight: 900;
     }
     .lane-label span {
       display: block;
       margin-top: 4px;
       color: var(--muted);
-      font-size: .73rem;
+      font-size: .72rem;
     }
     .lane-track {
       position: relative;
       display: grid;
-      grid-template-columns: repeat(30, minmax(0, 1fr));
+      grid-template-columns: repeat(25, minmax(0, 1fr));
       align-items: center;
       min-height: 70px;
       background-image: repeating-linear-gradient(
         to right,
         transparent 0,
-        transparent calc((100% / 15) - 1px),
-        rgba(23,34,52,.08) calc((100% / 15) - 1px),
-        rgba(23,34,52,.08) calc(100% / 15)
+        transparent calc((100% / 25) - 1px),
+        rgba(23,34,52,.08) calc((100% / 25) - 1px),
+        rgba(23,34,52,.08) calc(100% / 25)
       );
     }
     .gantt-task {
@@ -569,7 +636,7 @@
       z-index: 2;
       min-height: 54px;
       margin: 0 2px;
-      padding: 7px 8px;
+      padding: 7px 7px;
       border-radius: 11px;
       display: flex;
       flex-direction: column;
@@ -577,51 +644,30 @@
       justify-content: center;
       text-align: center;
       line-height: 1.08;
-      font-size: .73rem;
+      font-size: .68rem;
       font-weight: 850;
     }
     .gantt-task small {
       display: block;
       margin-top: 4px;
-      font-size: .62rem;
+      font-size: .60rem;
       font-weight: 800;
       opacity: .72;
     }
-    .cashier-confirm {
-      grid-column: 1 / span 2;
-      background: #e5f2f3;
-      color: var(--teal-dark);
-    }
-    .cashier-retrieve {
-      grid-column: 3 / span 2;
-      background: #d1e9eb;
-      color: var(--teal-dark);
-    }
-    .cashier-seal {
-      grid-column: 5 / span 6;
-      background: #75b9bf;
-      color: #073c41;
-    }
-    .cashier-handoff {
-      grid-column: 11 / span 2;
-      background: var(--teal);
-      color: #ffffff;
-    }
-    .maker-place {
-      grid-column: 1 / span 2;
-      background: var(--copper-soft);
-      color: #865018;
-    }
-    .maker-dispense {
-      grid-column: 3 / span 16;
-      background: #d7ecee;
-      color: var(--teal-dark);
-    }
-    .maker-shake {
-      grid-column: 19 / span 12;
-      background: #8fc8cd;
-      color: #083e43;
-    }
+    .cashier-confirm { grid-column: 1 / span 1; background:#e5f2f3; color:var(--teal-dark); }
+    .cashier-pour { grid-column: 2 / span 7; background:#c9e3e5; color:var(--teal-dark); }
+    .cashier-toppings { grid-column: 9 / span 6; background:#75b9bf; color:#073c41; }
+    .cashier-handoff { grid-column: 15 / span 1; background:var(--teal); color:#fff; }
+
+    .maker-place { grid-column: 1 / span 2; background:var(--copper-soft); color:#865018; }
+    .maker-dispense { grid-column: 3 / span 10; background:#d7ecee; color:var(--teal-dark); }
+    .maker-shake { grid-column: 13 / span 10; background:#8fc8cd; color:#083e43; }
+    .maker-stock { grid-column: 23 / span 3; background:var(--teal); color:#fff; }
+
+    .ice-task-1 { grid-column: 3 / span 3; background:#f5e2c8; color:#845019; }
+    .ice-task-2 { grid-column: 6 / span 3; background:#efd1aa; color:#75430f; }
+    .ice-task-3 { grid-column: 9 / span 3; background:#e7bc82; color:#663805; }
+
     .parallel-note {
       display: grid;
       grid-template-columns: 170px 1fr;
@@ -713,6 +759,13 @@
     .pilot-note p { margin:0; color:var(--muted); }
     .pilot-note.accent p { color:rgba(255,255,255,.78); }
 
+
+    .pilot-actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
     .sources { background:var(--dark); color:white; padding:54px 0; }
     .source-layout { display:grid; grid-template-columns:1fr 2fr; gap:44px; }
     .sources h2 { font-family:var(--serif); font-size:2.3rem; margin:0; }
@@ -750,18 +803,58 @@
     .spec { padding:18px; border-radius:15px; background:var(--copper-soft); }
     .spec strong { display:block; font-family:var(--serif); font-size:2rem; }
 
+    .mobile-drawer { display: none; }
+
+    #modelDetails {
+      width: min(1080px, calc(100% - 34px));
+    }
+    .model-spec-wrap {
+      margin-top: 25px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+    .model-spec-table {
+      width: 100%;
+      min-width: 780px;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    .model-spec-table th,
+    .model-spec-table td {
+      padding: 16px 18px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+    .model-spec-table th {
+      width: 27%;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .model-spec-table td {
+      color: var(--ink);
+      font-size: .93rem;
+    }
+    .model-spec-table tr:last-child th,
+    .model-spec-table tr:last-child td {
+      border-bottom: 0;
+    }
+
     .mobile-menu { display:none; }
 
     @media (max-width: 1000px) {
-      .nav { grid-template-columns: 220px 1fr auto; }
+      .nav { grid-template-columns: 220px 1fr; }
       .nav-links { gap:16px; }
       .hero-content { grid-template-columns:1fr; gap:35px; }
       .hero-aside { justify-self:start; }
       .section-head { grid-template-columns:90px 1fr; }
       .section-head p { grid-column:2; justify-self:start; }
-      .stats-grid { grid-template-columns:1fr 1fr; }
-      .stat:nth-child(2) { border-right:0; }
-      .stat:nth-child(-n+2) { border-bottom:1px solid rgba(23,34,52,.1); }
+      .stats-grid { grid-template-columns:repeat(3,1fr); }
       .market-why-grid { grid-template-columns:1fr; }
       .roi-body, .machine-layout, .validation-layout { grid-template-columns:1fr; }
       .workflow-card.cashier { grid-template-columns:1fr 1fr; }
@@ -835,7 +928,6 @@
         <a href="#operations">Operations</a>
         <a href="#pilot">Pilot</a>
       </div>
-      <a class="nav-cta" href="./cleaning-sop.html">Cleaning SOP ↗</a>
       <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button>
     </nav>
   </header>
@@ -845,7 +937,6 @@
     <a href="#model-k">Model K</a>
     <a href="#operations">Operations</a>
     <a href="#pilot">Pilot</a>
-    <a href="./cleaning-sop.html">Cleaning SOP</a>
   </div>
 
   <main>
@@ -886,11 +977,6 @@
             <span class="mini">Five-year growth</span>
             <strong class="value">10.2%</strong>
             <div class="label">U.S. bubble tea shop CAGR, 2020–2025.</div>
-          </article>
-          <article class="stat">
-            <span class="mini">Young-adult shift</span>
-            <strong class="value">50%</strong>
-            <div class="label">Adults 18–34 who reported drinking alcohol in 2025.</div>
           </article>
           <article class="stat">
             <span class="mini">Venue scale</span>
@@ -953,23 +1039,23 @@
         <div class="section-head">
           <div class="section-number">02 / ROI</div>
           <div><h2>One stand can create a meaningful new revenue line.</h2></div>
-          <p>Planning model: $10 selling price and approximately $1.15 ingredient cost per cup.</p>
+          <p>Planning model: a suggested selling price of $10 per cup.</p>
         </div>
 
         <div class="roi-hero">
           <div class="roi-step">
             <strong>500 cups</strong>
-            <span>across three Model K units</span>
+            <span>planning target per event</span>
           </div>
           <div class="roi-arrow">→</div>
           <div class="roi-step">
             <strong>$5,000</strong>
-            <span>gross sales per event</span>
+            <span>gross revenue per event</span>
           </div>
           <div class="roi-arrow">→</div>
           <div class="roi-step">
-            <strong>$4,425</strong>
-            <span>ingredient-level contribution*</span>
+            <strong id="heroAnnualSales">$625K</strong>
+            <span>at 125 qualifying events</span>
           </div>
         </div>
 
@@ -991,21 +1077,19 @@
               <input id="events" type="range" min="40" max="200" step="5" value="125">
             </div>
             <div class="calc-results">
-              <div class="calc-box"><span>Event sales</span><strong id="eventSales">$5,000</strong></div>
-              <div class="calc-box"><span>Event contribution</span><strong id="eventContribution">$4,425</strong></div>
-              <div class="calc-box"><span>Annual sales</span><strong id="annualSales">$625,000</strong></div>
-              <div class="calc-box"><span>Annual contribution</span><strong id="annualContribution">$553,125</strong></div>
+              <div class="calc-box"><span>Revenue per event</span><strong id="eventSales">$5,000</strong></div>
+              <div class="calc-box"><span>Illustrative annual revenue</span><strong id="annualSales">$625,000</strong></div>
             </div>
-            <p class="calc-disclaimer">*Before labor, merchant fees, tax, packaging variance, waste and any venue revenue-share. The calculator is an illustrative planning model, not a forecast or guarantee.</p>
+            <p class="calc-disclaimer">Illustrative gross-revenue planning model based on the selected cup and event volumes. Commercial terms remain subject to pilot negotiation.</p>
           </div>
 
           <div class="roi-explain">
             <h3>Why 500 cups is operationally plausible</h3>
             <ul>
-              <li><div class="bullet">1</div><div><strong>≈167 cups per machine</strong><small>500 cups divided across three Model K units — below the proposed ≈191-cup refill point.</small></div></li>
-              <li><div class="bullet">2</div><div><strong>≈70 minutes of production</strong><small>At the manufacturer planning rate of 144 cups per hour per unit, running in parallel.</small></div></li>
-              <li><div class="bullet">3</div><div><strong>2.6% attach rate at capacity</strong><small>500 cups against TD Garden's maximum 19,580-seat configuration.</small></div></li>
-              <li><div class="bullet">4</div><div><strong>Scale the stand, not the recipe complexity</strong><small>Volume increases by adding identical Model K units and keeping the same operating sequence.</small></div></li>
+              <li><div class="bullet">1</div><div><strong>4–6 cups per minute per machine</strong><small>A 10–15 second machine-output cadence supports approximately four to six drinks per minute.</small></div></li>
+              <li><div class="bullet">2</div><div><strong>12–18 cups per minute across three machines</strong><small>The proposed three-unit configuration runs the same production sequence in parallel.</small></div></li>
+              <li><div class="bullet">3</div><div><strong>Ideal 30-minute ceiling: 540 cups</strong><small>Three machines × six cups per minute × 30 minutes = 540 cups.</small></div></li>
+              <li><div class="bullet">4</div><div><strong>500 cups is the buffered planning target</strong><small>The target stays below the ideal 540-cup ceiling to allow for normal operating variation.</small></div></li>
             </ul>
           </div>
         </div>
@@ -1016,7 +1100,22 @@
       <div class="shell">
         <div class="machine-layout">
           <div class="machine-stage">
-            <img src="./model-k.png" alt="Infinitea Model K shown beside a refrigerator silhouette">
+            <div class="machine-carousel" id="modelKCarousel">
+              <button class="carousel-control prev" type="button" aria-label="Previous Model K image">‹</button>
+              <div class="machine-carousel-viewport">
+                <img class="machine-slide active" src="./model-k.png" alt="Model K size comparison beside a refrigerator">
+                <img class="machine-slide" src="./model-k-front-silver.png" alt="Front view of the silver Model K beverage machine">
+                <img class="machine-slide" src="./model-k-black.png" alt="Front view of the black Model K beverage machine">
+                <img class="machine-slide scene-slide" src="./model-k-in-stand.jpg" alt="Model K installed inside a working restaurant service area">
+              </div>
+              <button class="carousel-control next" type="button" aria-label="Next Model K image">›</button>
+              <div class="carousel-dots" aria-label="Model K image selection">
+                <button class="carousel-dot active" type="button" aria-label="Show image 1"></button>
+                <button class="carousel-dot" type="button" aria-label="Show image 2"></button>
+                <button class="carousel-dot" type="button" aria-label="Show image 3"></button>
+                <button class="carousel-dot" type="button" aria-label="Show image 4"></button>
+              </div>
+            </div>
           </div>
           <div class="machine-copy">
             <div class="kicker">Why Model K</div>
@@ -1042,95 +1141,80 @@
         <div class="section-head">
           <div class="section-number">04 / Operations</div>
           <div><h2>Two parallel lanes: guest handoff and premade replenishment.</h2></div>
-          <p>The operating model separates responsibilities so the guest-facing cashier does not wait for the approximately 15-second premade-drink cycle.</p>
+          <p>The operating model separates guest-facing finishing from the approximately 25-second premade-drink production cycle, while ice preparation overlaps with automatic dispensing.</p>
         </div>
 
         <div class="cycle-banner">
           <div class="cycle-card">
             <div>
               <small>Cashier lane</small>
-              <span>Confirm, retrieve, seal and hand off</span>
+              <span>Confirm, pour, add toppings and hand off</span>
             </div>
-            <strong>≈6 sec</strong>
+            <strong>≈15 sec</strong>
           </div>
           <div class="cycle-card">
             <div>
               <small>Drink-maker lane</small>
-              <span>Place cup, dispense with ice prep, and auto shake</span>
+              <span>Select, auto dispense, auto shake and stock</span>
             </div>
-            <strong>≈15 sec</strong>
+            <strong>≈25 sec</strong>
           </div>
         </div>
 
-        <div class="gantt" aria-label="Illustrative parallel 15-second operating Gantt chart">
+        <div class="gantt" aria-label="Illustrative parallel 25-second operating Gantt chart">
           <div class="gantt-inner">
-
             <div class="gantt-scale">
               <div></div>
-              <div class="time-scale" aria-hidden="true">
-                <span>0</span><span>1</span><span>2</span><span>3</span>
-                <span>4</span><span>5</span><span>6</span><span>7</span>
-                <span>8</span><span>9</span><span>10</span><span>11</span>
-                <span>12</span><span>13</span><span>14</span><span>15 sec</span>
-              </div>
+              <div class="time-scale" aria-hidden="true"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25 sec</span></div>
             </div>
 
             <div class="gantt-lane">
               <div class="lane-label">
                 <strong>Cashier</strong>
-                <span>Guest-facing cycle: ≈6 sec</span>
+                <span>Listed task duration: ≈15 sec</span>
               </div>
               <div class="lane-track">
-                <div class="gantt-task cashier-confirm">
-                  Confirm
-                  <small>≈1 sec</small>
-                </div>
-                <div class="gantt-task cashier-retrieve">
-                  Retrieve
-                  <small>≈1 sec</small>
-                </div>
-                <div class="gantt-task cashier-seal">
-                  Seal
-                  <small>≈3 sec</small>
-                </div>
-                <div class="gantt-task cashier-handoff">
-                  Handoff
-                  <small>≈1 sec</small>
-                </div>
+                <div class="gantt-task cashier-confirm">Confirm order<small>≈1 sec</small></div>
+                <div class="gantt-task cashier-pour">Pour premade drink into ice cup<small>≈7 sec</small></div>
+                <div class="gantt-task cashier-toppings">Add toppings<small>≈6 sec</small></div>
+                <div class="gantt-task cashier-handoff">Handoff<small>≈1 sec</small></div>
               </div>
             </div>
 
             <div class="gantt-lane">
               <div class="lane-label">
-                <strong>Drink maker</strong>
-                <span>Premade-drink cycle: ≈15 sec</span>
+                <strong>Drink maker / machines</strong>
+                <span>Premade-drink cycle: ≈25 sec</span>
               </div>
               <div class="lane-track">
-                <div class="gantt-task maker-place">
-                  Place Cup + Select
-                  <small>≈1 sec</small>
-                </div>
-                <div class="gantt-task maker-dispense">
-                  Ice Prep + Auto Dispense
-                  <small>≈8 sec</small>
-                </div>
-                <div class="gantt-task maker-shake">
-                  Auto Shake
-                  <small>≈6 sec</small>
-                </div>
+                <div class="gantt-task maker-place">Place cup + select drink<small>≈2 sec</small></div>
+                <div class="gantt-task maker-dispense">Auto dispense — Infinitea machine<small>≈10 sec</small></div>
+                <div class="gantt-task maker-shake">Auto shake — machine<small>≈10 sec</small></div>
+                <div class="gantt-task maker-stock">Stock premade drink<small>≈3 sec</small></div>
+              </div>
+            </div>
+
+            <div class="gantt-lane ice-prep-lane">
+              <div class="lane-label">
+                <strong>Parallel ice prep</strong>
+                <span>Cycles during auto dispense</span>
+              </div>
+              <div class="lane-track">
+                <div class="gantt-task ice-task-1">Ice prep 1<small>≈3 sec</small></div>
+                <div class="gantt-task ice-task-2">Ice prep 2<small>≈3 sec</small></div>
+                <div class="gantt-task ice-task-3">Ice prep 3<small>≈3 sec</small></div>
               </div>
             </div>
 
             <div class="parallel-note">
               <strong>Why the lanes work:</strong>
               <span>
-                The cashier completes the current guest order in approximately
-                six seconds while the drink maker replenishes the premade buffer
-                on an approximately fifteen-second production cycle. Both lanes
-                operate independently and in parallel during peak demand.
+                The 10-second automatic dispense window allows three approximately
+                three-second ice-prep cycles to run in parallel. The drink maker
+                then moves to automatic shaking and stocks the premade buffer,
+                while the cashier completes guest-facing finishing and handoff.
               </span>
             </div>
-
           </div>
         </div>
 
@@ -1145,8 +1229,8 @@
             <div class="workflow-copy">
               <div class="lane">Cashier lane</div>
               <h3>Order &amp; pickup</h3>
-              <p>The cashier confirms the order, retrieves the matching drink from the premade zone and completes the handoff without waiting for production.</p>
-              <div class="time-line"><span>Guest-facing handoff</span><strong>≈6 sec</strong></div>
+              <p>The cashier confirms the order, pours the premade drink into the prepared ice cup, adds toppings and completes the handoff.</p>
+              <div class="time-line"><span>Cashier finishing sequence</span><strong>≈15 sec</strong></div>
             </div>
           </article>
 
@@ -1161,8 +1245,8 @@
               <div class="workflow-copy">
                 <div class="lane">Drink-maker lane</div>
                 <h3>Auto dispense + parallel prep</h3>
-                <p>The machine dispenses independently while the employee prepares the next ice-filled serving cup.</p>
-                <div class="time-line"><span>Automated dispense</span><strong>≈8~10 sec</strong></div>
+                <p>The Infinitea machine dispenses automatically for approximately ten seconds while three short ice-prep cycles can run in parallel.</p>
+                <div class="time-line"><span>Auto dispense</span><strong>≈10 sec</strong></div>
               </div>
             </article>
 
@@ -1176,8 +1260,8 @@
               <div class="workflow-copy">
                 <div class="lane">Drink-maker lane</div>
                 <h3>Shake, seal &amp; restock</h3>
-                <p>The drink is automatically shaken, poured into the iced serving cup, sealed and returned to the premade zone.</p>
-                <div class="time-line"><span>Finish + restock</span><strong>≈6 sec</strong></div>
+                <p>The machine automatically shakes the drink, after which the completed premade drink is stocked for the cashier.</p>
+                <div class="time-line"><span>Auto shake + stock</span><strong>≈13 sec</strong></div>
               </div>
             </article>
           </div>
@@ -1252,6 +1336,9 @@
             <p>Cups and revenue per event, peak-window throughput, stockouts, labor touch time, cleaning completion, guest response and event-type attach rate.</p>
           </div>
         </div>
+        <div class="pilot-actions">
+          <a class="primary" href="./launch-checklist.html">Open Infinitea Launch Checklist ↗</a>
+        </div>
       </div>
     </section>
 
@@ -1268,7 +1355,7 @@
           <li><a href="https://www.tdgarden.com/venue-info/about-td-garden" target="_blank" rel="noopener">TD Garden — About the Venue</a>: 3.5M+ annual guests, 200+ events annually, 47 concession stands and maximum capacity of 19,580.</li>
           <li><a href="https://www.tdgarden.com/news/detail/td-garden-named-6-highest-grossing-venue-worldwide" target="_blank" rel="noopener">TD Garden, 2023</a>: 50 concerts plus more than 200 special events and Bruins / Celtics home games.</li>
           <li>Model K planning input supplied for this proposal: ≈15 seconds per premade drink, 144 cups/hour, 17 ingredient containers, ≈191 cups before refill, 660 × 540 mm cabinet footprint, casters and single power connection.</li>
-          <li>ROI assumptions: $10 selling price; $1.15 ingredient cost; gross contribution excludes labor, tax, fees, waste, packaging variance and venue revenue share.</li>
+          <li>ROI assumption: a suggested $10 selling price per cup. Revenue figures are illustrative and commercial terms remain subject to negotiation.</li>
         </ol>
       </div>
     </section>
@@ -1395,20 +1482,29 @@
   <dialog id="modelDetails">
     <div class="modal-inner">
       <button class="modal-close" aria-label="Close">×</button>
-      <div class="modal-kicker">Model K / Detail card</div>
-      <h2>What it takes to put one in</h2>
-      <div class="detail-list">
-        <div class="detail-item"><div class="num">1</div><div><strong>Moves on casters</strong><span>Roll into position, lock the wheels and reposition between event configurations.</span></div></div>
-        <div class="detail-item"><div class="num">2</div><div><strong>Single power connection</strong><span>Proposed for a standard commercial electrical connection; no gas or hood.</span></div></div>
-        <div class="detail-item"><div class="num">3</div><div><strong>≈4.3 sq ft operating footprint</strong><span>Cabinet body is approximately 660 × 540 mm; final clearance must be confirmed during the site walk.</span></div></div>
-        <div class="detail-item"><div class="num">4</div><div><strong>No new specialty stand</strong><span>Designed to fit into an existing counter or stand service line.</span></div></div>
-        <div class="detail-item"><div class="num">5</div><div><strong>Commercial food-service configuration</strong><span>Manufacturer lists ETL / NSF ANSI-18, UL 197 and CSA C22.2; exact delivered configuration should be verified before installation.</span></div></div>
-      </div>
-      <div class="spec-grid">
-        <div class="spec"><strong>144/hr</strong><span>theoretical output</span></div>
-        <div class="spec"><strong>≈191</strong><span>cups per ingredient load</span></div>
-        <div class="spec"><strong>17</strong><span>ingredient containers</span></div>
-        <div class="spec"><strong>≈15 sec</strong><span>planning cycle</span></div>
+      <div class="modal-kicker">Model K / Technical details</div>
+      <h2>Model K specifications</h2>
+      <div class="model-spec-wrap">
+        <table class="model-spec-table">
+          <tbody>
+            <tr><th>Product model</th><td>Model K (NCJ-K)</td></tr>
+            <tr><th>Product dimensions</th><td>660 × 540 × 1550 mm</td></tr>
+            <tr><th>Product power</th><td>1.2 kW / 220 V 50 Hz or 110 V 60 Hz</td></tr>
+            <tr><th>Net product weight</th><td>Approximately 165 kg</td></tr>
+            <tr><th>Screen size</th><td>10.1 inch</td></tr>
+            <tr><th>Operating system</th><td>Android 7.1</td></tr>
+            <tr><th>Discharge method</th><td>Discharge by QR-code scanning</td></tr>
+            <tr><th>Cooling method</th><td>Air cooling</td></tr>
+            <tr><th>Portion box</th><td>2</td></tr>
+            <tr><th>Automatic discharge</th><td>17 types, customizable</td></tr>
+            <tr><th>Refrigeration</th><td>7 × 3.5 L + 5 × 2.5 L + external tea bucket 3 × 8 L + heating syrup machine 1 × 3.5 L; expandable by 2 units</td></tr>
+            <tr><th>Accuracy calibration</th><td>±1–3 ml</td></tr>
+            <tr><th>Discharge speed</th><td>5–8 seconds</td></tr>
+            <tr><th>End-of-day cleaning</th><td>CIP cleaning</td></tr>
+            <tr><th>Output ingredients</th><td>Tea, syrup, milk, juice, thick fruit puree, etc.</td></tr>
+            <tr><th>Cooling temperature</th><td>Full-pipeline refrigeration</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </dialog>
@@ -1440,17 +1536,39 @@
     function updateCalc() {
       const c = Number(cups.value), e = Number(events.value);
       const revenue = c * 10;
-      const contribution = c * (10 - 1.15);
+      const annualRevenue = revenue * e;
       document.getElementById('cupsOut').textContent = `${c} cups`;
       document.getElementById('eventsOut').textContent = `${e} events`;
       document.getElementById('eventSales').textContent = money(revenue);
-      document.getElementById('eventContribution').textContent = money(contribution);
-      document.getElementById('annualSales').textContent = money(revenue * e);
-      document.getElementById('annualContribution').textContent = money(contribution * e);
+      document.getElementById('annualSales').textContent = money(annualRevenue);
+      const heroAnnual = document.getElementById('heroAnnualSales');
+      if (heroAnnual) {
+        heroAnnual.textContent = annualRevenue >= 1000000
+          ? `$${(annualRevenue / 1000000).toFixed(2).replace(/\.00$/, '')}M`
+          : `$${Math.round(annualRevenue / 1000)}K`;
+      }
     }
     cups.addEventListener('input', updateCalc);
     events.addEventListener('input', updateCalc);
     updateCalc();
+
+
+    const carousel = document.getElementById('modelKCarousel');
+    if (carousel) {
+      const slides = [...carousel.querySelectorAll('.machine-slide')];
+      const dots = [...carousel.querySelectorAll('.carousel-dot')];
+      let currentSlide = 0;
+
+      const showSlide = index => {
+        currentSlide = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide));
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+      };
+
+      carousel.querySelector('.prev').addEventListener('click', () => showSlide(currentSlide - 1));
+      carousel.querySelector('.next').addEventListener('click', () => showSlide(currentSlide + 1));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
+    }
 
     document.querySelectorAll('video[autoplay]').forEach(video => {
       video.play().catch(() => {});
