@@ -1,9 +1,12 @@
-GITHUB UPDATE FILES
+TD GARDEN HTML BRAND STORY UPDATE
 
-Upload all files in this ZIP to the same GitHub directory as your website.
-Replace the current index.html.
+Upload all four files into the same GitHub folder as your current website.
+Replace the existing index.html.
 
-New images:
-- why-boba-grows.jpg
-- why-td-garden.jpg
-- why-model-k.jpg
+Files:
+- index.html
+- boba-banner.jpg
+- mascon-headquarters.jpg
+- model-k-modal.jpg
+
+Your existing logo and website assets should remain in the same folder.

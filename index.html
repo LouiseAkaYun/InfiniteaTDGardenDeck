@@ -61,14 +61,49 @@
       align-items: center;
       gap: 20px;
     }
-    .brand-pair { display: flex; align-items: center; gap: 13px; }
-    .brand-pair img:first-child { width: 74px; height: 48px; object-fit: contain; }
-    .brand-pair .x { color: white; opacity: .8; font-size: 15px; font-weight: 800; }
-    .brand-pair img:last-child {
-      width: 145px; height: 43px; object-fit: contain;
+    .brand-pair {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+    .brand-logo-button {
+      display: inline-grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 999px;
+      transition: transform .2s ease, filter .2s ease;
+    }
+    .brand-logo-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+    .brand-logo-button:focus-visible {
+      outline: 3px solid rgba(102,198,203,.75);
+      outline-offset: 4px;
+    }
+    .brand-logo {
+      display: block;
+      object-fit: contain;
+    }
+    .brand-logo.infinitea {
+      width: 74px;
+      height: 48px;
+    }
+    .brand-logo.mascon {
+      width: 145px;
+      height: 43px;
       border-radius: 999px;
       background: rgba(5,14,23,.86);
       padding: 7px 12px;
+    }
+    .brand-pair .x {
+      color: white;
+      opacity: .8;
+      font-size: 15px;
+      font-weight: 800;
     }
     .topbar.scrolled .brand-pair .x { color: var(--ink); }
     .nav-links { justify-self: center; display: flex; gap: 28px; align-items: center; }
@@ -959,6 +994,244 @@
     .spec { padding:18px; border-radius:15px; background:var(--copper-soft); }
     .spec strong { display:block; font-family:var(--serif); font-size:2rem; }
 
+
+    .brand-dialog {
+      width: min(1100px, calc(100% - 34px));
+      max-height: 90vh;
+      overflow: auto;
+    }
+    .brand-dialog .modal-inner {
+      padding: clamp(28px, 4vw, 48px);
+    }
+    .brand-dialog h2 {
+      max-width: 880px;
+      font-size: clamp(2.2rem, 4vw, 4.2rem);
+      line-height: .96;
+    }
+    .brand-dialog-lead {
+      max-width: 900px;
+      margin: 0 0 30px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.55;
+    }
+    .brand-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .brand-feature-card {
+      padding: 27px;
+      border: 1px solid #bddbde;
+      border-radius: 18px;
+      background: #fff;
+    }
+    .brand-feature-card h3 {
+      margin: 0 0 13px;
+      color: var(--teal);
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .brand-feature-card p {
+      margin: 0;
+      color: var(--ink);
+    }
+    .brand-stat-grid {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 28px 0;
+    }
+    .brand-stat-card {
+      min-height: 130px;
+      padding: 22px;
+      border-radius: 16px;
+      background: #f2f4f5;
+    }
+    .brand-stat-card.accent {
+      background: var(--teal);
+      color: #fff;
+    }
+    .brand-stat-card strong {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--teal-dark);
+      font-family: var(--serif);
+      font-size: 1.7rem;
+      line-height: 1.05;
+    }
+    .brand-stat-card.accent strong {
+      color: #fff;
+      font-size: 3rem;
+    }
+    .brand-stat-card span {
+      color: var(--muted);
+      font-size: .84rem;
+    }
+    .brand-stat-card.accent span {
+      color: rgba(255,255,255,.82);
+    }
+    .mascon-story-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(320px, 1.05fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+    .mascon-capabilities {
+      padding: 28px;
+      border-radius: 18px;
+      background: #f2f4f5;
+    }
+    .mascon-capabilities h3 {
+      margin: 0 0 19px;
+      font-family: var(--serif);
+      font-size: 1.8rem;
+    }
+    .mascon-capabilities ul {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .mascon-capabilities li {
+      position: relative;
+      padding-left: 21px;
+      color: var(--muted);
+    }
+    .mascon-capabilities li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .55em;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+    .mascon-capabilities li strong {
+      color: var(--ink);
+    }
+    .mascon-photo {
+      min-height: 390px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: var(--teal-soft);
+    }
+    .mascon-photo img {
+      width: 100%;
+      height: 100%;
+      min-height: 390px;
+      object-fit: cover;
+    }
+    .industry-strip {
+      margin-top: 20px;
+      padding: 19px 23px;
+      border-radius: 14px;
+      background: var(--teal);
+      color: #fff;
+    }
+    .industry-strip strong {
+      margin-right: 8px;
+    }
+    .company-trust {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+    .contact-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 17px;
+      margin-top: 19px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+    .contact-strip a {
+      color: var(--teal-dark);
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .contact-strip a:hover {
+      text-decoration: underline;
+    }
+
+    .boba-bridge {
+      padding: 0 0 88px;
+      background: var(--paper);
+    }
+    .boba-bridge .shell {
+      width: min(1500px, calc(100% - 44px));
+    }
+    .boba-bridge-frame {
+      height: clamp(210px, 27vw, 390px);
+      overflow: hidden;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background: #ece8e1;
+    }
+    .boba-bridge-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 48%;
+    }
+
+    #whyModelK {
+      width: min(980px, calc(100% - 34px));
+    }
+    .why-model-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(230px, 310px);
+      gap: 28px;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .why-model-visual {
+      min-height: 400px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #f1f3f4, #ffffff);
+    }
+    .why-model-visual img {
+      width: 100%;
+      max-height: 430px;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 25px rgba(23,34,52,.17));
+    }
+
+    @media (max-width: 800px) {
+      .brand-feature-grid,
+      .brand-stat-grid,
+      .mascon-story-grid,
+      .why-model-layout {
+        grid-template-columns: 1fr;
+      }
+      .brand-stat-card {
+        min-height: auto;
+      }
+      .mascon-photo,
+      .mascon-photo img {
+        min-height: 260px;
+      }
+      .why-model-visual {
+        min-height: 330px;
+      }
+      .boba-bridge {
+        padding-bottom: 60px;
+      }
+      .boba-bridge-frame {
+        height: 250px;
+      }
+    }
+
     .mobile-drawer { display: none; }
 
     #modelDetails {
@@ -1022,8 +1295,8 @@
       .topbar { height:68px; background:rgba(5,12,18,.58); backdrop-filter:blur(10px); }
       .topbar.scrolled { background:rgba(255,255,255,.96); }
       .nav { width:calc(100% - 24px); grid-template-columns:1fr auto; }
-      .brand-pair img:first-child { width:58px; }
-      .brand-pair img:last-child { width:112px; height:37px; }
+      .brand-logo.infinitea { width:58px; }
+      .brand-logo.mascon { width:112px; height:37px; }
       .nav-links, .nav-cta { display:none; }
       .mobile-menu {
         display:inline-flex; width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.4);
@@ -1073,9 +1346,27 @@
   <header class="topbar" id="topbar">
     <nav class="nav" aria-label="Main navigation">
       <div class="brand-pair">
-        <img src="./logo-infinitea.png" alt="Infinitea">
-        <span class="x">×</span>
-        <img src="./logo-mascon.png" alt="Mascon Strategic Supply Chain Services">
+        <button
+          type="button"
+          class="brand-logo-button"
+          data-modal="brandInfinitea"
+          aria-label="Open Infinitea brand introduction"
+          aria-haspopup="dialog"
+        >
+          <img class="brand-logo infinitea" src="./logo-infinitea.png" alt="Infinitea">
+        </button>
+
+        <span class="x" aria-hidden="true">×</span>
+
+        <button
+          type="button"
+          class="brand-logo-button"
+          data-modal="brandMascon"
+          aria-label="Open Mascon Inc. company introduction"
+          aria-haspopup="dialog"
+        >
+          <img class="brand-logo mascon" src="./logo-mascon.png" alt="Mascon Strategic Supply Chain Services">
+        </button>
       </div>
       <div class="nav-links">
         <a href="#market">Market</a>
@@ -1186,6 +1477,17 @@
           </button>
 
         </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="boba-bridge" aria-label="Premium boba beverage showcase">
+      <div class="shell">
+        <div class="boba-bridge-frame">
+          <img
+            src="./boba-banner.jpg"
+            alt="A selection of colorful sealed milk tea and fruit tea drinks"
+          >
         </div>
       </div>
     </section>
@@ -1552,6 +1854,107 @@
 
 
 
+  <dialog id="brandInfinitea" class="brand-dialog">
+    <div class="modal-inner">
+      <button class="modal-close" aria-label="Close">×</button>
+      <div class="modal-kicker">Brand introduction</div>
+      <h2><span style="color:var(--teal)">INFINITEA</span> — Powered by Mascon</h2>
+      <p class="brand-dialog-lead">
+        An automated tea bar program for premium venues — backed end-to-end by
+        Mascon's 45-year global sourcing &amp; supply-chain operation.
+      </p>
+
+      <div class="brand-feature-grid">
+        <article class="brand-feature-card">
+          <h3>Supply consistency</h3>
+          <p>
+            Ingredients are imported, quality-checked and stocked through
+            Mascon's Massachusetts warehouse, with planned replenishment to
+            help every location pour the same cup and avoid running dry.
+          </p>
+        </article>
+
+        <article class="brand-feature-card">
+          <h3>Technical support</h3>
+          <p>
+            Mascon supports installation, calibration and operator training,
+            together with remote machine monitoring and on-call maintenance.
+          </p>
+        </article>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="brandMascon" class="brand-dialog">
+    <div class="modal-inner">
+      <button class="modal-close" aria-label="Close">×</button>
+      <div class="modal-kicker">Company introduction</div>
+      <h2>Mascon Inc. — Strategic Supply Chain Services</h2>
+      <p class="brand-dialog-lead">
+        Mascon provides the sourcing, engineering, quality, logistics,
+        warehousing and vendor-management infrastructure behind the Infinitea
+        automated tea bar program.
+      </p>
+
+      <div class="brand-stat-grid">
+        <article class="brand-stat-card accent">
+          <strong>45</strong>
+          <span>years in operation — sourcing and supplying globally since 1981</span>
+        </article>
+        <article class="brand-stat-card">
+          <strong>Woburn, MA</strong>
+          <span>U.S. headquarters and warehouse</span>
+        </article>
+        <article class="brand-stat-card">
+          <strong>Branch offices</strong>
+          <span>Regions: U.S., China, Taiwan and Hong Kong</span>
+        </article>
+        <article class="brand-stat-card">
+          <strong>ISO 9001</strong>
+          <span>Certified · Minority Business Enterprise</span>
+        </article>
+      </div>
+
+      <div class="mascon-story-grid">
+        <div class="mascon-capabilities">
+          <h3>What we do — behind the tea bar</h3>
+          <ul>
+            <li><strong>Purchasing</strong> — monitors ingredient usage and replenishes ahead of demand</li>
+            <li><strong>Engineering</strong> — technical support, machine upgrades and factory liaison</li>
+            <li><strong>Quality assurance</strong> — ingredient inspection and food-grade compliance</li>
+            <li><strong>Shipping &amp; logistics</strong> — coordinates machines and ingredients</li>
+            <li><strong>Warehousing</strong> — stores, ships and tracks ingredients and machines</li>
+            <li><strong>Vendor management</strong> — supports machine development and upgrades</li>
+          </ul>
+        </div>
+
+        <figure class="mascon-photo">
+          <img src="./mascon-headquarters.jpg" alt="Mascon headquarters in Woburn, Massachusetts">
+        </figure>
+      </div>
+
+      <div class="industry-strip">
+        <strong>Industries served:</strong>
+        Robotics · Aerospace · Medical · Defense · Safety · Security · Food &amp; Beverage
+      </div>
+
+      <p class="company-trust">
+        Trusted by Honeywell · GE · Amazon · Boston Dynamics · SIG Sauer · ITT ·
+        Flex · Pelican — including long-term relationships extending beyond 20 years.
+      </p>
+
+      <div class="contact-strip">
+        <a href="https://www.mascon.com/" target="_blank" rel="noopener">www.mascon.com</a>
+        <span>·</span>
+        <a href="mailto:info@mascon.com">info@mascon.com</a>
+        <span>·</span>
+        <a href="tel:+18008585289">+1-800-858-5289</a>
+        <span>·</span>
+        <span>5 Commonwealth Avenue, Woburn, MA 01801</span>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="whyBobaGrows">
     <div class="modal-inner">
       <button class="modal-close" aria-label="Close">×</button>
@@ -1628,31 +2031,44 @@
       <button class="modal-close" aria-label="Close">×</button>
       <div class="modal-kicker">Why 03 / Operating fit</div>
       <h2>Why Infinitea Model K</h2>
-      <p>
-        Model K is designed to add a specialty-drink platform without creating
-        a large traditional boba counter or a labor-heavy manual production line.
-      </p>
-      <div class="detail-list">
-        <div class="detail-item">
-          <div class="num">1</div>
-          <div>
-            <strong>Compact</strong>
-            <span>Its narrow footprint is intended for constrained service lines and existing concession layouts.</span>
+
+      <div class="why-model-layout">
+        <div>
+          <p>
+            Model K is designed to add a specialty-drink platform without
+            creating a large traditional boba counter or a labor-heavy manual
+            production line.
+          </p>
+
+          <div class="detail-list">
+            <div class="detail-item">
+              <div class="num">1</div>
+              <div>
+                <strong>Compact</strong>
+                <span>Its narrow footprint is intended for constrained service lines and existing concession layouts.</span>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="num">2</div>
+              <div>
+                <strong>Mobile</strong>
+                <span>Casters allow the unit to be rolled into position and relocated for different event configurations.</span>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="num">3</div>
+              <div>
+                <strong>Built for lean operation</strong>
+                <span>Automated dispensing and shaking support a planned premade-drink cycle of approximately 15 seconds.</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="detail-item">
-          <div class="num">2</div>
-          <div>
-            <strong>Mobile</strong>
-            <span>Casters allow the unit to be rolled into position and relocated for different event configurations.</span>
-          </div>
-        </div>
-        <div class="detail-item">
-          <div class="num">3</div>
-          <div>
-            <strong>Built for lean operation</strong>
-            <span>Automated dispensing and shaking support a planned premade-drink cycle of approximately 15 seconds.</span>
-          </div>
+
+        <div class="why-model-visual">
+          <img src="./model-k-modal.jpg" alt="Infinitea Model K automated tea machine">
         </div>
       </div>
     </div>
