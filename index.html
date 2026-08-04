@@ -1720,6 +1720,11 @@
       document.getElementById('eventsOut').textContent = `${e} events`;
       document.getElementById('eventSales').textContent = money(revenue);
       document.getElementById('annualSales').textContent = money(annualRevenue);
+      const heroAnnual = document.getElementById('heroAnnualSales');
+      if (heroAnnual) {
+        heroAnnual.textContent = annualRevenue >= 1000000
+          ? `$${(annualRevenue / 1000000).toFixed(2).replace(/\.00$/, '')}M`
+          : `$${Math.round(annualRevenue / 1000)}K`;
       }
     }
     cups.addEventListener('input', updateCalc);
