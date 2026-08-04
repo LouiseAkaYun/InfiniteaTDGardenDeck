@@ -43,7 +43,7 @@
       position: fixed;
       inset: 0 0 auto 0;
       z-index: 60;
-      height: 78px;
+      height: 94px;
       display: flex;
       align-items: center;
       transition: background .25s ease, box-shadow .25s ease;
@@ -54,17 +54,17 @@
       box-shadow: 0 1px 0 rgba(23,34,52,.1);
     }
     .nav {
-      width: min(1320px, calc(100% - 34px));
+      width: min(1440px, calc(100% - 34px));
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 430px 1fr;
       align-items: center;
       gap: 20px;
     }
     .brand-pair {
       display: flex;
       align-items: center;
-      gap: 13px;
+      gap: 18px;
     }
     .brand-logo-button {
       display: inline-grid;
@@ -89,20 +89,20 @@
       object-fit: contain;
     }
     .brand-logo.infinitea {
-      width: 74px;
-      height: 48px;
+      width: 110px;
+      height: 74px;
     }
     .brand-logo.mascon {
-      width: 145px;
-      height: 43px;
+      width: 250px;
+      height: 72px;
       border-radius: 999px;
       background: rgba(5,14,23,.86);
-      padding: 7px 12px;
+      padding: 10px 18px;
     }
     .brand-pair .x {
       color: white;
       opacity: .8;
-      font-size: 15px;
+      font-size: 24px;
       font-weight: 800;
     }
     .topbar.scrolled .brand-pair .x { color: var(--ink); }
@@ -254,7 +254,26 @@
       color: var(--muted);
     }
 
-    .market { background: var(--paper); }
+    .market {
+      background: var(--paper);
+      overflow: hidden;
+    }
+    .market .shell {
+      position: relative;
+      z-index: 1;
+    }
+    .market::after {
+      content: "";
+      position: absolute;
+      right: max(0px, calc((100vw - 1240px) / 2 - 10px));
+      top: 78px;
+      width: min(520px, 38vw);
+      height: 320px;
+      background: url("./market-boba-strip.png") center / contain no-repeat;
+      opacity: .13;
+      pointer-events: none;
+      z-index: 0;
+    }
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -398,17 +417,37 @@
       background: #83d4d8;
     }
 
-    .roi { background: var(--dark); color: white; overflow: hidden; }
+    .roi {
+      background: var(--dark);
+      color: white;
+      overflow: hidden;
+    }
+    .roi .shell {
+      position: relative;
+      z-index: 2;
+    }
     .roi::before {
+      content:"";
+      position:absolute;
+      inset: 0 0 auto 0;
+      height: 360px;
+      background:
+        linear-gradient(180deg, rgba(13,21,31,.15) 0%, rgba(13,21,31,.72) 55%, rgba(13,21,31,1) 100%),
+        url("./roi-social.jpg") center top / cover no-repeat;
+      opacity: .62;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .roi::after {
       content:""; position:absolute; width:600px; height:600px; border-radius:50%;
-      background: radial-gradient(circle, rgba(11,135,144,.28), transparent 66%);
-      right:-190px; top:-210px;
+      background: radial-gradient(circle, rgba(11,135,144,.24), transparent 66%);
+      right:-190px; top:-210px; pointer-events:none; z-index:1;
     }
     .roi .section-head p, .roi .section-number { color: rgba(255,255,255,.68); }
     .roi .section-number { color: #66c6cb; }
     .roi-hero {
       border-radius: 25px;
-      background: linear-gradient(100deg, #dff0f1, #eff7f7);
+      background: linear-gradient(100deg, rgba(232,245,246,.96), rgba(243,249,249,.96));
       color: var(--ink);
       display: grid;
       grid-template-columns: 1fr auto 1fr auto 1fr;
@@ -612,7 +651,7 @@
     .gantt {
       width: 100%;
       overflow: hidden;
-      padding: clamp(18px, 2vw, 30px);
+      padding: clamp(20px, 2vw, 30px);
       background: #ffffff;
       border-radius: 24px;
       box-shadow: var(--shadow);
@@ -624,19 +663,19 @@
     .gantt-scale,
     .gantt-lane {
       display: grid;
-      grid-template-columns: clamp(132px, 13vw, 180px) minmax(0, 1fr);
+      grid-template-columns: clamp(150px, 15vw, 215px) minmax(0, 1fr);
       align-items: center;
     }
     .gantt-scale {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .time-scale {
       display: grid;
       grid-template-columns: repeat(26, minmax(0, 1fr));
       align-items: end;
-      padding: 0 0 10px;
+      padding: 0 0 12px;
       color: var(--muted);
-      font-size: clamp(.48rem, .55vw, .66rem);
+      font-size: clamp(.68rem, .74vw, .88rem);
       border-bottom: 1px solid var(--line);
     }
     .time-scale span {
@@ -644,37 +683,39 @@
       white-space: nowrap;
     }
     .gantt-lane {
-      min-height: 100px;
+      min-height: 112px;
       border-bottom: 1px solid var(--line);
-    }
-    .gantt-lane.ice-prep-lane {
-      min-height: 88px;
     }
     .gantt-worker-group {
       display: grid;
-      grid-template-columns: clamp(132px, 13vw, 180px) minmax(0, 1fr);
+      grid-template-columns: clamp(150px, 15vw, 215px) minmax(0, 1fr);
       align-items: stretch;
       border-bottom: 1px solid var(--line);
+    }
+    .gantt-worker-group .shared-worker-label,
+    .lane-label {
+      min-width: 0;
+      padding-right: clamp(12px, 1.8vw, 24px);
     }
     .gantt-worker-group .shared-worker-label {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-width: 0;
-      padding-right: clamp(10px, 1.7vw, 24px);
     }
-    .gantt-worker-group .shared-worker-label strong {
+    .gantt-worker-group .shared-worker-label strong,
+    .lane-label strong {
       display: block;
-      font-size: clamp(.82rem, 1.05vw, 1.06rem);
+      font-size: clamp(1rem, 1.28vw, 1.36rem);
       font-weight: 900;
-      line-height: 1.15;
+      line-height: 1.12;
     }
-    .gantt-worker-group .shared-worker-label span {
+    .gantt-worker-group .shared-worker-label span,
+    .lane-label span {
       display: block;
-      margin-top: 5px;
+      margin-top: 8px;
       color: var(--muted);
-      font-size: clamp(.60rem, .69vw, .72rem);
-      line-height: 1.35;
+      font-size: clamp(.78rem, .9vw, 1rem);
+      line-height: 1.34;
     }
     .gantt-worker-tracks {
       min-width: 0;
@@ -682,11 +723,11 @@
     .gantt-worker-row {
       display: flex;
       align-items: center;
-      min-height: 100px;
+      min-height: 112px;
       border-bottom: 1px solid var(--line);
     }
     .gantt-worker-row:last-child {
-      min-height: 88px;
+      min-height: 112px;
       border-bottom: 0;
     }
     .gantt-worker-row .lane-track {
@@ -695,30 +736,13 @@
     .gantt-lane:last-of-type {
       border-bottom: 0;
     }
-    .lane-label {
-      min-width: 0;
-      padding-right: clamp(10px, 1.7vw, 24px);
-    }
-    .lane-label strong {
-      display: block;
-      font-size: clamp(.82rem, 1.05vw, 1.06rem);
-      font-weight: 900;
-      line-height: 1.15;
-    }
-    .lane-label span {
-      display: block;
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: clamp(.60rem, .69vw, .72rem);
-      line-height: 1.35;
-    }
     .lane-track {
       position: relative;
       display: grid;
       grid-template-columns: repeat(25, minmax(0, 1fr));
       align-items: center;
       min-width: 0;
-      min-height: 70px;
+      min-height: 78px;
       background-image: repeating-linear-gradient(
         to right,
         transparent 0,
@@ -731,34 +755,30 @@
       grid-row: 1;
       z-index: 2;
       min-width: 0;
-      min-height: 54px;
+      min-height: 64px;
       margin: 0 2px;
-      padding: 6px 5px;
+      padding: 8px 8px;
       overflow: hidden;
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      line-height: 1.08;
-      font-size: clamp(.50rem, .60vw, .67rem);
-      font-weight: 850;
+      line-height: 1.1;
+      font-size: clamp(.74rem, .92vw, 1rem);
+      font-weight: 900;
       white-space: normal;
+      word-break: keep-all;
+      hyphens: none;
     }
     .gantt-task small {
-      display: block;
-      margin-top: 4px;
-      font-size: clamp(.46rem, .51vw, .58rem);
-      font-weight: 800;
-      opacity: .74;
-      white-space: nowrap;
+      display: none;
     }
     .cashier-confirm,
     .cashier-handoff {
-      padding-left: 2px;
-      padding-right: 2px;
-      font-size: clamp(.47rem, .54vw, .60rem);
+      padding-left: 4px;
+      padding-right: 4px;
+      font-size: clamp(.66rem, .8vw, .88rem);
     }
     .cashier-confirm {
       grid-column: 1 / span 1;
@@ -832,7 +852,7 @@
     }
     .parallel-note {
       display: grid;
-      grid-template-columns: minmax(145px, 170px) 1fr;
+      grid-template-columns: minmax(160px, 185px) 1fr;
       gap: 20px;
       align-items: start;
       margin-top: 24px;
@@ -842,29 +862,37 @@
     }
     .parallel-note strong {
       color: var(--teal-dark);
+      font-size: 1rem;
     }
     .parallel-note span {
       color: var(--ink);
+      font-size: .98rem;
     }
     @media (max-width: 900px) {
       .gantt-scale,
       .gantt-lane,
       .gantt-worker-group {
-        grid-template-columns: 112px minmax(0, 1fr);
+        grid-template-columns: 126px minmax(0, 1fr);
+      }
+      .time-scale {
+        font-size: .56rem;
       }
       .gantt-task {
         margin: 0 1px;
-        padding: 4px 2px;
-        font-size: .46rem;
+        padding: 5px 3px;
+        font-size: .54rem;
       }
-      .gantt-task small {
-        font-size: .42rem;
+      .cashier-confirm,
+      .cashier-handoff {
+        font-size: .48rem;
       }
-      .lane-label strong {
-        font-size: .76rem;
+      .lane-label strong,
+      .gantt-worker-group .shared-worker-label strong {
+        font-size: .84rem;
       }
-      .lane-label span {
-        font-size: .56rem;
+      .lane-label span,
+      .gantt-worker-group .shared-worker-label span {
+        font-size: .62rem;
       }
       .parallel-note {
         grid-template-columns: 1fr;
@@ -1274,10 +1302,299 @@
       border-bottom: 0;
     }
 
+
+    .brand-story-dialog {
+      width: min(1540px, calc(100% - 28px));
+      max-height: 94vh;
+      overflow: auto;
+    }
+    .brand-story-dialog .modal-inner {
+      padding: clamp(28px, 3vw, 52px);
+    }
+    .brand-story-dialog .modal-close {
+      width: 58px;
+      height: 58px;
+      font-size: 1.8rem;
+      border: 2px solid rgba(23,34,52,.85);
+      top: 24px;
+      right: 24px;
+    }
+    .brand-story-dialog .modal-kicker {
+      font-size: .86rem;
+      letter-spacing: .12em;
+    }
+    .brand-story-hero {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .brand-lockup .story-infinitea {
+      width: 110px;
+      height: auto;
+      object-fit: contain;
+    }
+    .brand-lockup .story-mascon {
+      width: 190px;
+      height: auto;
+      object-fit: contain;
+    }
+    .brand-lockup .story-x {
+      color: var(--muted);
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .brand-story-dialog h2 {
+      margin: 0 0 14px;
+      max-width: 1050px;
+      font-size: clamp(2.8rem, 6.2vw, 4.7rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+    }
+    .brand-story-dialog h2 .accent {
+      color: var(--teal);
+    }
+    .brand-story-lead {
+      margin: 0;
+      max-width: 1020px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1.48;
+    }
+    .brand-story-stats {
+      display: grid;
+      grid-template-columns: 1.18fr repeat(3, 1fr);
+      gap: 18px;
+      margin: 26px 0 28px;
+    }
+    .brand-story-stat {
+      min-height: 142px;
+      padding: 24px;
+      border-radius: 16px;
+      background: #f3f4f5;
+    }
+    .brand-story-stat strong {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--teal);
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 2.3vw, 2.8rem);
+      line-height: 1.02;
+    }
+    .brand-story-stat span {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .brand-story-stat.accent {
+      background: var(--teal);
+      color: #fff;
+    }
+    .brand-story-stat.accent strong,
+    .brand-story-stat.accent span {
+      color: #fff;
+    }
+    .brand-story-stat.accent strong {
+      font-size: clamp(2.8rem, 4vw, 4.6rem);
+    }
+    .brand-story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+    .brand-story-panel {
+      border-radius: 18px;
+      background: #f2f4f5;
+      padding: 28px 30px;
+    }
+    .brand-story-panel.soft {
+      background: #e5f0f0;
+    }
+    .brand-story-panel h3 {
+      margin: 0 0 12px;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 2.5vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -.03em;
+    }
+    .brand-story-panel h3 .accent {
+      color: var(--teal);
+    }
+    .brand-story-panel p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    .brand-story-panel ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+    .brand-story-panel li {
+      position: relative;
+      padding-left: 28px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+    .brand-story-panel li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .52em;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+    .brand-story-panel li strong {
+      color: var(--ink);
+    }
+    .brand-program-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .brand-program-card {
+      padding: 26px 22px;
+      border: 2px solid #b9d5d8;
+      border-radius: 16px;
+      background: #fff;
+      min-height: 210px;
+    }
+    .brand-program-card h4 {
+      margin: 0 0 14px;
+      color: var(--teal);
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 1.65vw, 1.55rem);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .brand-program-card p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .story-photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .story-photo {
+      overflow: hidden;
+      border-radius: 18px;
+      background: #dde7e8;
+      min-height: 320px;
+    }
+    .story-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .story-strips {
+      display: grid;
+      grid-template-columns: 1.9fr .9fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .industry-strip,
+    .responsibility-strip {
+      padding: 20px 24px;
+      border-radius: 14px;
+      color: #fff;
+    }
+    .industry-strip {
+      background: var(--teal);
+    }
+    .responsibility-strip {
+      background: #1b2740;
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      line-height: 1.3;
+      text-align: center;
+      display: grid;
+      place-items: center;
+    }
+    .responsibility-strip .accent {
+      text-decoration: underline;
+      text-decoration-color: rgba(185, 57, 57, .55);
+      text-underline-offset: 4px;
+    }
+    .story-trust {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    .story-trust strong {
+      color: var(--ink);
+    }
+    .story-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    .story-contact a {
+      color: var(--teal-dark);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .story-contact a:hover {
+      text-decoration: underline;
+    }
+
     .mobile-menu { display:none; }
 
+    @media (max-width: 980px) {
+      .brand-story-hero,
+      .brand-story-grid,
+      .story-photo-grid,
+      .story-strips,
+      .brand-program-cards,
+      .brand-story-stats {
+        grid-template-columns: 1fr;
+      }
+      .brand-story-hero {
+        gap: 18px;
+      }
+      .brand-lockup .story-infinitea {
+        width: 88px;
+      }
+      .brand-lockup .story-mascon {
+        width: 160px;
+      }
+      .story-photo {
+        min-height: 260px;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .nav { grid-template-columns: 360px 1fr; }
+      .brand-logo.infinitea { width: 96px; height: 64px; }
+      .brand-logo.mascon { width: 220px; height: 64px; }
+    }
+
     @media (max-width: 1000px) {
-      .nav { grid-template-columns: 220px 1fr; }
+      .nav { grid-template-columns: 300px 1fr; }
       .nav-links { gap:16px; }
       .hero-content { grid-template-columns:1fr; gap:35px; }
       .hero-aside { justify-self:start; }
@@ -1295,8 +1612,8 @@
       .topbar { height:68px; background:rgba(5,12,18,.58); backdrop-filter:blur(10px); }
       .topbar.scrolled { background:rgba(255,255,255,.96); }
       .nav { width:calc(100% - 24px); grid-template-columns:1fr auto; }
-      .brand-logo.infinitea { width:58px; }
-      .brand-logo.mascon { width:112px; height:37px; }
+      .brand-logo.infinitea { width:72px; height:auto; }
+      .brand-logo.mascon { width:156px; height:48px; padding:8px 12px; }
       .nav-links, .nav-cta { display:none; }
       .mobile-menu {
         display:inline-flex; width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.4);
@@ -1349,8 +1666,8 @@
         <button
           type="button"
           class="brand-logo-button"
-          data-modal="brandInfinitea"
-          aria-label="Open Infinitea brand introduction"
+          data-modal="brandStory"
+          aria-label="Open Infinitea and Mascon introduction"
           aria-haspopup="dialog"
         >
           <img class="brand-logo infinitea" src="./logo-infinitea.png" alt="Infinitea">
@@ -1361,8 +1678,8 @@
         <button
           type="button"
           class="brand-logo-button"
-          data-modal="brandMascon"
-          aria-label="Open Mascon Inc. company introduction"
+          data-modal="brandStory"
+          aria-label="Open Infinitea and Mascon introduction"
           aria-haspopup="dialog"
         >
           <img class="brand-logo mascon" src="./logo-mascon.png" alt="Mascon Strategic Supply Chain Services">
@@ -1513,7 +1830,7 @@
           <div class="roi-arrow">→</div>
           <div class="roi-step">
             <strong id="heroAnnualSales">$625K</strong>
-            <span>at 125 qualifying events</span>
+            <span>anticipated annual sales</span>
           </div>
         </div>
 
@@ -1647,7 +1964,7 @@
                   <small>≈6 sec</small>
                 </div>
                 <div class="gantt-task cashier-handoff">
-                  Hand-off
+                  Hand-<wbr>off
                   <small>≈1 sec</small>
                 </div>
               </div>
@@ -1852,98 +2169,90 @@
     </div>
   </footer>
 
-
-
-  <dialog id="brandInfinitea" class="brand-dialog">
+  <dialog id="brandStory" class="brand-story-dialog">
     <div class="modal-inner">
       <button class="modal-close" aria-label="Close">×</button>
       <div class="modal-kicker">Brand introduction</div>
-      <h2><span style="color:var(--teal)">INFINITEA</span> — Powered by Mascon</h2>
-      <p class="brand-dialog-lead">
-        An automated tea bar program for premium venues — backed end-to-end by
-        Mascon's 45-year global sourcing &amp; supply-chain operation.
-      </p>
 
-      <div class="brand-feature-grid">
-        <article class="brand-feature-card">
-          <h3>Supply consistency</h3>
-          <p>
-            Ingredients are imported, quality-checked and stocked through
-            Mascon's Massachusetts warehouse, with planned replenishment to
-            help every location pour the same cup and avoid running dry.
+      <div class="brand-story-hero">
+        <div class="brand-lockup" aria-hidden="true">
+          <img class="story-infinitea" src="./logo-infinitea.png" alt="">
+          <img class="story-mascon" src="./logo-mascon.png" alt="">
+        </div>
+        <div>
+          <h2><span class="accent">Infinitea</span>, Powered by Mascon</h2>
+          <p class="brand-story-lead">
+            An automated tea bar program for premium venues — backed end-to-end by Mascon's 45-year global sourcing &amp; supply-chain operation.
           </p>
-        </article>
-
-        <article class="brand-feature-card">
-          <h3>Technical support</h3>
-          <p>
-            Mascon supports installation, calibration and operator training,
-            together with remote machine monitoring and on-call maintenance.
-          </p>
-        </article>
+        </div>
       </div>
-    </div>
-  </dialog>
 
-  <dialog id="brandMascon" class="brand-dialog">
-    <div class="modal-inner">
-      <button class="modal-close" aria-label="Close">×</button>
-      <div class="modal-kicker">Company introduction</div>
-      <h2>Mascon Inc. — Strategic Supply Chain Services</h2>
-      <p class="brand-dialog-lead">
-        Mascon provides the sourcing, engineering, quality, logistics,
-        warehousing and vendor-management infrastructure behind the Infinitea
-        automated tea bar program.
-      </p>
-
-      <div class="brand-stat-grid">
-        <article class="brand-stat-card accent">
+      <div class="brand-story-stats">
+        <article class="brand-story-stat accent">
           <strong>45</strong>
-          <span>years in operation — sourcing and supplying globally since 1981</span>
+          <span>years in operation<br>sourcing &amp; supplying globally since 1981</span>
         </article>
-        <article class="brand-stat-card">
+        <article class="brand-story-stat">
           <strong>Woburn, MA</strong>
-          <span>U.S. headquarters and warehouse</span>
+          <span>US headquarters &amp; warehouse</span>
         </article>
-        <article class="brand-stat-card">
+        <article class="brand-story-stat">
           <strong>Branch offices</strong>
-          <span>Regions: U.S., China, Taiwan and Hong Kong</span>
+          <span>regions: US, China, Taiwan, HK</span>
         </article>
-        <article class="brand-stat-card">
+        <article class="brand-story-stat">
           <strong>ISO 9001</strong>
-          <span>Certified · Minority Business Enterprise</span>
+          <span>certified · Minority Business Enterprise</span>
         </article>
       </div>
 
-      <div class="mascon-story-grid">
-        <div class="mascon-capabilities">
+      <div class="brand-story-grid">
+        <section class="brand-story-panel">
           <h3>What we do — behind the tea bar</h3>
           <ul>
-            <li><strong>Purchasing</strong> — monitors ingredient usage and replenishes ahead of demand</li>
-            <li><strong>Engineering</strong> — technical support, machine upgrades and factory liaison</li>
-            <li><strong>Quality assurance</strong> — ingredient inspection and food-grade compliance</li>
-            <li><strong>Shipping &amp; logistics</strong> — coordinates machines and ingredients</li>
-            <li><strong>Warehousing</strong> — stores, ships and tracks ingredients and machines</li>
-            <li><strong>Vendor management</strong> — supports machine development and upgrades</li>
+            <li><strong>Purchasing</strong> — monitors ingredient usage, replenishes ahead of demand</li>
+            <li><strong>Engineering</strong> — technical support, machine upgrades, factory liaison</li>
+            <li><strong>Quality assurance</strong> — ingredient inspection &amp; food-grade compliance</li>
+            <li><strong>Shipping &amp; logistics</strong> — machines &amp; ingredients</li>
+            <li><strong>Warehousing</strong> — stores, ships &amp; tracks ingredients and machines</li>
+            <li><strong>Vendor management</strong> — machine development and upgrades</li>
           </ul>
-        </div>
+        </section>
 
-        <figure class="mascon-photo">
-          <img src="./mascon-headquarters.jpg" alt="Mascon headquarters in Woburn, Massachusetts">
+        <section class="brand-story-panel soft">
+          <h3><span class="accent">Infinitea</span> — our automated tea bar program</h3>
+          <p>
+            The same supply-chain machine, applied to fresh beverages: leased intelligent boba machines backed end-to-end by Mascon.
+          </p>
+          <div class="brand-program-cards">
+            <article class="brand-program-card">
+              <h4>Supply consistency</h4>
+              <p>Ingredients imported, QA'd and stocked in our Massachusetts warehouse — just-in-time resupply so every location pours the same cup, and never runs dry.</p>
+            </article>
+            <article class="brand-program-card">
+              <h4>Technical support</h4>
+              <p>Install, calibration &amp; operator training by Mascon; remote machine monitoring, on-call maintenance.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <div class="story-photo-grid">
+        <figure class="story-photo">
+          <img src="./mascon-headquarters.jpg" alt="Mascon headquarters building in Woburn, Massachusetts">
+        </figure>
+        <figure class="story-photo">
+          <img src="./infinitea-program.jpg" alt="Infinitea staff training at the Model K machine">
         </figure>
       </div>
 
-      <div class="industry-strip">
-        <strong>Industries served:</strong>
-        Robotics · Aerospace · Medical · Defense · Safety · Security · Food &amp; Beverage
+      <div class="story-strips">
+        <div class="industry-strip"><strong>Industries served:</strong> Robotics · Aerospace · Medical · Defense · Safety · Security · Food &amp; Beverage</div>
+        <div class="responsibility-strip">Single point of responsibility — <span class="accent">Infinitea</span>/Mascon</div>
       </div>
 
-      <p class="company-trust">
-        Trusted by Honeywell · GE · Amazon · Boston Dynamics · SIG Sauer · ITT ·
-        Flex · Pelican — including long-term relationships extending beyond 20 years.
-      </p>
-
-      <div class="contact-strip">
+      <p class="story-trust"><strong>Trusted by</strong> Honeywell · GE · Amazon · Boston Dynamics · SIG Sauer · ITT · Flex · Pelican — some for over 20 years.</p>
+      <div class="story-contact">
         <a href="https://www.mascon.com/" target="_blank" rel="noopener">www.mascon.com</a>
         <span>·</span>
         <a href="mailto:info@mascon.com">info@mascon.com</a>
@@ -1955,7 +2264,7 @@
     </div>
   </dialog>
 
-  <dialog id="whyBobaGrows">
+<dialog id="whyBobaGrows">
     <div class="modal-inner">
       <button class="modal-close" aria-label="Close">×</button>
       <div class="modal-kicker">Why 01 / Category growth</div>
@@ -2061,7 +2370,7 @@
               <div class="num">3</div>
               <div>
                 <strong>Built for lean operation</strong>
-                <span>Automated dispensing supports an efficient, consistent premade-drink cycle.</span>
+                <span>Automated dispensing and shaking support a planned premade-drink cycle of approximately 15 seconds.</span>
               </div>
             </div>
           </div>
