@@ -262,15 +262,25 @@
       position: relative;
       z-index: 1;
     }
+    .market::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 22px;
+      width: 100%;
+      height: min(21vw, 280px);
+      background: url("./market-boba-strip.png") center center / cover no-repeat;
+      opacity: .65;
+      pointer-events: none;
+      z-index: 0;
+    }
     .market::after {
       content: "";
       position: absolute;
-      right: max(0px, calc((100vw - 1240px) / 2 - 10px));
-      top: 78px;
-      width: min(520px, 38vw);
-      height: 320px;
-      background: url("./market-boba-strip.png") center / contain no-repeat;
-      opacity: .13;
+      inset: 0 0 auto 0;
+      height: min(24vw, 320px);
+      background: linear-gradient(180deg, rgba(248,250,250,.18) 0%, rgba(248,250,250,.18) 22%, rgba(248,250,250,.52) 58%, rgba(248,250,250,.92) 100%);
       pointer-events: none;
       z-index: 0;
     }
@@ -430,11 +440,11 @@
       content:"";
       position:absolute;
       inset: 0 0 auto 0;
-      height: 360px;
+      height: 460px;
       background:
-        linear-gradient(180deg, rgba(13,21,31,.15) 0%, rgba(13,21,31,.72) 55%, rgba(13,21,31,1) 100%),
-        url("./roi-social.jpg") center top / cover no-repeat;
-      opacity: .62;
+        linear-gradient(180deg, rgba(13,21,31,.16) 0%, rgba(13,21,31,.44) 42%, rgba(13,21,31,.82) 72%, rgba(13,21,31,1) 100%),
+        url("./roi-social.jpg") center 74% / cover no-repeat;
+      opacity: .9;
       pointer-events: none;
       z-index: 0;
     }
@@ -1523,17 +1533,18 @@
     }
     .responsibility-strip {
       background: #1b2740;
-      font-family: var(--serif);
-      font-size: 1.18rem;
-      line-height: 1.3;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.45;
       text-align: center;
       display: grid;
       place-items: center;
     }
     .responsibility-strip .accent {
-      text-decoration: underline;
-      text-decoration-color: rgba(185, 57, 57, .55);
-      text-underline-offset: 4px;
+      text-decoration: none;
+      color: inherit;
+      font: inherit;
     }
     .story-trust {
       margin: 16px 0 0;
